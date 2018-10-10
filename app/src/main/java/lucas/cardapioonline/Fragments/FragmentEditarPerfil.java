@@ -2,13 +2,10 @@ package lucas.cardapioonline.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,24 +17,18 @@ import android.widget.Spinner;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-
-import lucas.cardapioonline.Classes.Mascara;
-import lucas.cardapioonline.Classes.Usuarios;
+import lucas.cardapioonline.Classes.clMascara;
+import lucas.cardapioonline.Classes.clUsuarios;
+import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.R;
-
-import static lucas.cardapioonline.Classes.Util.MensagemRapida;
 
 public class FragmentEditarPerfil extends Fragment {
 
@@ -56,6 +47,7 @@ public class FragmentEditarPerfil extends Fragment {
     private Integer height, width;
     private DatabaseReference reference;
     private StorageReference storageReference;
+    private clUtil util;
 
 
     @Override
@@ -83,8 +75,9 @@ public class FragmentEditarPerfil extends Fragment {
         //linearLayout_FotoPerfil = view.findViewById(R.id.linearLayout_FotoPerfil);
         //imgEditarFotoPerfil = view.findViewById(R.id.imgEditarFotoPerfil);
         storageReference = ConfiguracaoFirebase.getReferenciaStorage();
+        util = new clUtil(getActivity());
 
-        edtEditarCelular.addTextChangedListener(Mascara.insert("(##)#####-####", edtEditarCelular));
+        edtEditarCelular.addTextChangedListener(clMascara.insert("(##)#####-####", edtEditarCelular));
 
         btnEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,11 +122,11 @@ public class FragmentEditarPerfil extends Fragment {
             }
         } else {
             validaDados = false;
-            MensagemRapida(getActivity(), "Senhas não conferem!");
+            util.MensagemRapida("Senhas não conferem!");
         }
 
         if (validaDados) {
-            Usuarios usuarios = new Usuarios();
+            clUsuarios usuarios = new clUsuarios();
             usuarios.setEmail(edtEditarEmail.getText().toString());
             usuarios.setSenha(edtEditarSenha1.getText().toString());
             usuarios.setNome(edtEditarNome.getText().toString());
@@ -150,7 +143,7 @@ public class FragmentEditarPerfil extends Fragment {
         }
     }
 
-    private boolean atualizarDados(final Usuarios usuarios, Boolean alteraSenha) {
+    private boolean atualizarDados(final clUsuarios usuarios, Boolean alteraSenha) {
         btnEditarPerfil.setEnabled(false);
 
         try {
@@ -165,7 +158,7 @@ public class FragmentEditarPerfil extends Fragment {
 
             usuarios.setUriFotoPerfil("");
             reference.child(txtKeyUsuario).setValue(usuarios);
-            MensagemRapida(getActivity(), "Dados alterados com sucesso!");
+            util.MensagemRapida("Dados alterados com sucesso!");
             btnEditarPerfil.setEnabled(true);
 
             /*StorageReference urlFoto = storageReference.child("fotoPerfilUsuario/" + usuarios.getEmail().toString() + ".jpg");

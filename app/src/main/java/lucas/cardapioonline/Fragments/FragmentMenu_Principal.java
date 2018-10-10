@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import lucas.cardapioonline.Classes.Constantes;
+import lucas.cardapioonline.Classes.clConstantes;
 import lucas.cardapioonline.R;
 
 public class FragmentMenu_Principal extends Fragment {
@@ -48,11 +48,11 @@ public class FragmentMenu_Principal extends Fragment {
         String GeneroUsuario = bundle.getString("Genero");
 
         if (GeneroUsuario.equals("Masculino")) {
-            Picasso.get().load(R.mipmap.avatar_masc_124).resize(Constantes.TamanhoFotoPerfil_Width, Constantes.TamanhoFotoPerfil_Height).centerCrop().into(imgFotoUsuario_Menu);
+            Picasso.get().load(R.mipmap.avatar_masc_124).resize(clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height).centerCrop().into(imgFotoUsuario_Menu);
         } else if (GeneroUsuario.equals("Feminino")) {
-            Picasso.get().load(R.mipmap.avatar_fem_124).resize(Constantes.TamanhoFotoPerfil_Width, Constantes.TamanhoFotoPerfil_Height).centerCrop().into(imgFotoUsuario_Menu);
+            Picasso.get().load(R.mipmap.avatar_fem_124).resize(clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height).centerCrop().into(imgFotoUsuario_Menu);
         } else {
-            Picasso.get().load(R.mipmap.avatar_user_124).resize(Constantes.TamanhoFotoPerfil_Width, Constantes.TamanhoFotoPerfil_Height).centerCrop().into(imgFotoUsuario_Menu);
+            Picasso.get().load(R.mipmap.avatar_user_124).resize(clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height).centerCrop().into(imgFotoUsuario_Menu);
         }
 
         linearLayout_RetornarMenuPrincipal.setOnClickListener(new View.OnClickListener() {

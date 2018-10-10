@@ -12,21 +12,20 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.List;
 
-import lucas.cardapioonline.Classes.Cardapio_Itens;
+import lucas.cardapioonline.Classes.clCardapio_Itens;
 import lucas.cardapioonline.R;
 
 public class CardapioAdapter extends RecyclerView.Adapter<CardapioAdapter.ViewHolder> {
 
-    private List<Cardapio_Itens> mCardapioList;
+    private List<clCardapio_Itens> mCardapioList;
     private Context context;
     private DatabaseReference referenciaFirebase;
-    private List<Cardapio_Itens> cardapios;
-    private Cardapio_Itens todosProdutos;
+    private List<clCardapio_Itens> cardapios;
+    private clCardapio_Itens todosProdutos;
 
-    public CardapioAdapter(List<Cardapio_Itens> l, Context c) {
+    public CardapioAdapter(List<clCardapio_Itens> l, Context c) {
         context = c;
         mCardapioList = l;
     }
@@ -41,7 +40,7 @@ public class CardapioAdapter extends RecyclerView.Adapter<CardapioAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull final CardapioAdapter.ViewHolder holder, int position) {
         DecimalFormat nf = new DecimalFormat("0.00");
-        final Cardapio_Itens item = mCardapioList.get(position);
+        final clCardapio_Itens item = mCardapioList.get(position);
         /*cardapios = new ArrayList<>();
         referenciaFirebase = FirebaseDatabase.getInstance().getReference();
         referenciaFirebase.child("cardapio").orderByChild("keyProduto").equalTo(item.getKeyProduto()).addValueEventListener(new ValueEventListener() {

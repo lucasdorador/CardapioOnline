@@ -9,12 +9,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.beardedhen.androidbootstrap.BootstrapDropDown;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,11 +22,10 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 
-import lucas.cardapioonline.Classes.Usuarios;
+import lucas.cardapioonline.Classes.clUsuarios;
+import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.R;
-
-import static lucas.cardapioonline.Classes.Util.MensagemRapida;
 
 public class FragmentCadastro extends Fragment {
 
@@ -41,6 +37,7 @@ public class FragmentCadastro extends Fragment {
     private OnFragmentInteractionListener mListener;
     private FirebaseAuth autenticacao;
     private DatabaseReference reference;
+    private clUtil util;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +57,7 @@ public class FragmentCadastro extends Fragment {
         edtCadastrarNome = view.findViewById(R.id.edtCadastrarNome);
         edtCadastrarIdade = view.findViewById(R.id.edtCadastrarIdade);
         SpinnerGenero = view.findViewById(R.id.SpinnerGenero);
+        util = new clUtil(getActivity());
 
         btnCadastrarFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +76,7 @@ public class FragmentCadastro extends Fragment {
         btnCadastrarEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Usuarios usuarios = new Usuarios();
+                clUsuarios usuarios = new clUsuarios();
                 usuarios.setEmail(edtCadastrarEmail.getText().toString());
                 usuarios.setSenha(edtCadastrarSenha.getText().toString());
                 usuarios.setNome(edtCadastrarNome.getText().toString());
@@ -115,7 +113,7 @@ public class FragmentCadastro extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void cadastrarUsuario(final Usuarios usuarios) {
+    private void cadastrarUsuario(final clUsuarios usuarios) {
         Boolean vlbValidaCadastro = true;
 
         if (usuarios.getEmail().toString().equals("")) {
@@ -160,24 +158,24 @@ public class FragmentCadastro extends Fragment {
                             e.printStackTrace();
                         }
 
-                        MensagemRapida(getActivity(), "Erro: " + erroExcecao);
+                        util.MensagemRapida("Erro: " + erroExcecao);
                     }
                 }
             });
         }
     }
 
-    private boolean insereUsuario(Usuarios usuarios) {
+    private boolean insereUsuario(clUsuarios usuarios) {
         try {
             reference = ConfiguracaoFirebase.getReferenciaFirebase().child("usuarios");
             String key = reference.push().getKey();
             usuarios.setKeyUsuario(key);
             reference.child(key).setValue(usuarios);
-            MensagemRapida(getActivity(), "Usuário cadastrado com sucesso!");
+            util.MensagemRapida("Usuário cadastrado com sucesso!");
             abreTelaConectar();
             return true;
         } catch (Exception e) {
-            MensagemRapida(getActivity(), "Erro ao gravar usuário!");
+            util.MensagemRapida("Erro ao gravar usuário!");
             e.printStackTrace();
             return false;
         }

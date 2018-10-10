@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -21,11 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import lucas.cardapioonline.Activity.MainActivity;
-import lucas.cardapioonline.Classes.Usuarios;
+import lucas.cardapioonline.Classes.clUsuarios;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.R;
-
-import static lucas.cardapioonline.Classes.Util.MensagemRapida;
 
 public class FragmentMenu_Configuracoes extends Fragment {
 
@@ -100,7 +97,7 @@ public class FragmentMenu_Configuracoes extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Usuarios usuarios = postSnapshot.getValue(Usuarios.class);
+                    clUsuarios usuarios = postSnapshot.getValue(clUsuarios.class);
 
                     final Bundle bundle = new Bundle();
 

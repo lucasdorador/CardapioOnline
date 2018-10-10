@@ -18,7 +18,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,12 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import dmax.dialog.SpotsDialog;
 import lucas.cardapioonline.Activity.PrincipalActivity;
-import lucas.cardapioonline.Classes.Usuarios;
+import lucas.cardapioonline.Classes.clUsuarios;
+import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.Helper.Preferencias;
 import lucas.cardapioonline.R;
-
-import static lucas.cardapioonline.Classes.Util.MensagemRapida;
 
 public class FragmentConectar extends Fragment {
 
@@ -41,8 +39,9 @@ public class FragmentConectar extends Fragment {
     private TextView txtEsqueceuSenha;
     private FirebaseAuth autenticacao;
     private DatabaseReference reference;
-    private Usuarios usuario;
+    private clUsuarios usuario;
     private AlertDialog dialog;
+    private clUtil util;
 
     private OnFragmentInteractionListener mListener;
 
@@ -70,6 +69,7 @@ public class FragmentConectar extends Fragment {
         txtEsqueceuSenha = view.findViewById(R.id.txtEsqueceuSenha);
         reference = FirebaseDatabase.getInstance().getReference();
         autenticacao = FirebaseAuth.getInstance();
+        util = new clUtil(getActivity());
 
         btnConectarFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +119,7 @@ public class FragmentConectar extends Fragment {
 
         if (vlbValidacao) {
 
-            usuario = new Usuarios();
+            usuario = new clUsuarios();
             usuario.setEmail(edtConectarEmail.getText().toString());
             usuario.setSenha(edtConectarSenha.getText().toString());
 
@@ -137,9 +137,9 @@ public class FragmentConectar extends Fragment {
                     Preferencias preferencias = new Preferencias(getActivity());
                     preferencias.salvarUsuarioPreferencias(usuario.getEmail(), usuario.getSenha());
                     dialog.dismiss();
-                    MensagemRapida(getActivity(), "Login efetuado com sucesso!");
+                    util.MensagemRapida("Login efetuado com sucesso!");
                 } else {
-                    MensagemRapida(getActivity(), "Usuário ou senha inválidos! Tente novamente");
+                    util.MensagemRapida("Usuário ou senha inválidos! Tente novamente");
                 }
             }
         });

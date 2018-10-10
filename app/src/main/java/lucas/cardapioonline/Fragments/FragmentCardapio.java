@@ -10,13 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lucas.cardapioonline.Adapter.CardapioAdapter;
-import lucas.cardapioonline.Classes.Cardapio_Itens;
+import lucas.cardapioonline.Classes.clCardapio_Itens;
 import lucas.cardapioonline.R;
 
 public class FragmentCardapio extends Fragment {
@@ -27,7 +26,7 @@ public class FragmentCardapio extends Fragment {
     private RecyclerView recycleViewCardapio;
     private LinearLayoutManager mLayoutManagerTodosProdutos;
     private CardapioAdapter adapter;
-    private List<Cardapio_Itens> cardapios;
+    private List<clCardapio_Itens> cardapios;
 
     public FragmentCardapio() {
         // Required empty public constructor
@@ -78,9 +77,9 @@ public class FragmentCardapio extends Fragment {
             }
         });*/
 
-        Cardapio_Itens itens;
+        clCardapio_Itens itens;
 
-        itens = new Cardapio_Itens();
+        itens = new clCardapio_Itens();
         itens.setGrupo("Porções Chapeadas");
         itens.setKeyProduto("1");
         itens.setProduto("Contra-Filé acebolado");
@@ -89,7 +88,7 @@ public class FragmentCardapio extends Fragment {
         itens.setValorInteira("52");
         cardapios.add(0, itens);
 
-        itens = new Cardapio_Itens();
+        itens = new clCardapio_Itens();
         itens.setKeyProduto("2");
         itens.setProduto("Picanha");
         itens.setComplementoProduto("(Acompanha arroz e salada)");
@@ -97,7 +96,7 @@ public class FragmentCardapio extends Fragment {
         itens.setValorInteira("62.00");
         cardapios.add(1, itens);
 
-        itens = new Cardapio_Itens();
+        itens = new clCardapio_Itens();
         itens.setKeyProduto("3");
         itens.setProduto("Calabresa Acebolada");
         itens.setComplementoProduto("(Acompanha pão)");
