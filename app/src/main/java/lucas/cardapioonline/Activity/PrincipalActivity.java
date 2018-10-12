@@ -6,10 +6,10 @@ import android.support.annotation.NonNull;
 
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.view.Gravity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,13 +19,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import lucas.cardapioonline.Adapter.EmpresasAdapter;
 import lucas.cardapioonline.Classes.clConstantes;
-import lucas.cardapioonline.Classes.clLinearLayout;
+import lucas.cardapioonline.Classes.clEmpresas_Inicial;
 import lucas.cardapioonline.Classes.clUtil;
-import lucas.cardapioonline.Classes.clpropertyLinearLayout;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.R;
 
@@ -36,10 +40,12 @@ public class PrincipalActivity extends AppCompatActivity {
     private ImageView imgPrincipalFoto;
     private TextView txtSaudacaoInicial;
     private String NomeCompleto = "", GeneroUsuario = "";
-    private LinearLayout linearLayout_Petiscaria;
-    private LinearLayout linearLayout_TodasEmpresas;
     private clUtil util;
-    private clLinearLayout clLinearLayout;
+    private RecyclerView recycleViewEmpresas;
+    private LinearLayoutManager mLayoutManagerTodosProdutos;
+    private EmpresasAdapter adapter;
+    private List<clEmpresas_Inicial> empresas;
+    private clEmpresas_Inicial todasEmpresas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,47 +55,61 @@ public class PrincipalActivity extends AppCompatActivity {
         reference = ConfiguracaoFirebase.getReferenciaFirebase();
         imgPrincipalFoto = findViewById(R.id.imgPrincipalFoto);
         txtSaudacaoInicial = findViewById(R.id.txtSaudacaoInicial);
-        linearLayout_Petiscaria = findViewById(R.id.linearLayout_Petiscaria);
-        clLinearLayout = new clLinearLayout(PrincipalActivity.this);
         util = new clUtil(PrincipalActivity.this);
 
-        criarLayoutsEmpresas_Firebase();
+        recycleViewEmpresas = findViewById(R.id.recycleViewEmpresas);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         preencheInfoUsuarioLogado();
 
+        carregarTodasEmpresas();
+
         imgPrincipalFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                abreActivityMenus("Abrir_Menus");
-            }
-        });
-
-        linearLayout_Petiscaria.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                abreActivityMenus("Cardapio");
+                abreActivityMenus();
             }
         });
     }
 
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.activity_principal_entrada, R.anim.activity_menu_saida);
+    private void abreActivityMenus() {
+        Intent intent = new Intent(PrincipalActivity.this, MenuActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("Acao", "Abrir_Menus");
+        bundle.putString("NomeCompleto", NomeCompleto);
+        bundle.putString("Genero", GeneroUsuario);
+        intent.putExtras(bundle);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
+        ActivityCompat.startActivity(PrincipalActivity.this, intent, optionsCompat.toBundle());
+        finish();
     }
 
-    private void criarLayoutsEmpresas_Firebase() {
+    private void carregarTodasEmpresas() {
+        recycleViewEmpresas.setHasFixedSize(true);
+        mLayoutManagerTodosProdutos = new LinearLayoutManager(PrincipalActivity.this, LinearLayoutManager.VERTICAL, false);
+        recycleViewEmpresas.setLayoutManager(mLayoutManagerTodosProdutos);
+        retornaCardapioCompleto();
+        adapter = new EmpresasAdapter(empresas, PrincipalActivity.this);
+        recycleViewEmpresas.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void retornaCardapioCompleto(){
+        empresas = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference();
+
         reference.child("empresa").orderByChild("nome").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    CriacaoLayoutEmpresas(postSnapShot.child("nome").getValue().toString(),
-                            postSnapShot.child("resumo").getValue().toString(),
-                            postSnapShot.child("url_logo").getValue().toString());
+                    todasEmpresas = postSnapShot.getValue(clEmpresas_Inicial.class);
+                    empresas.add(todasEmpresas);
                 }
+
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -99,85 +119,10 @@ public class PrincipalActivity extends AppCompatActivity {
         });
     }
 
-    private void abreActivityMenus(String AcaoAbertura) {
-        Intent intent = new Intent(PrincipalActivity.this, MenuActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("Acao", AcaoAbertura);
-        bundle.putString("Empresa", "Petiscaria");
-        bundle.putString("NomeCompleto", NomeCompleto);
-        bundle.putString("Genero", GeneroUsuario);
-        intent.putExtras(bundle);
-        //startActivity(intent);
-        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
-        ActivityCompat.startActivity(PrincipalActivity.this, intent, optionsCompat.toBundle());
-        finish();
-    }
-
-    private void CriacaoLayoutEmpresas(String psNomeEmpresa, String psResumoEmpresa, String url_logo) {
-        linearLayout_TodasEmpresas = findViewById(R.id.linearLayout_TodasEmpresas);
-
-        //View view = getLayoutInflater().inflate(R.layout.layout_view_menus, null);
-
-        LinearLayout linearLayout_Empresa = getLinearLayoutEmpresa();
-        LinearLayout linearLayout_Componentes = getLinearLayoutComponentes();
-        LinearLayout linearLayout_TextViews = getLinearLayoutTextViews();
-
-        linearLayout_TodasEmpresas.addView(linearLayout_Empresa);
-
-        linearLayout_Empresa.addView(linearLayout_Componentes);
-        ImageView imgFotoLogoEmpresas = new ImageView(this);
-        LinearLayout.LayoutParams layoutParams_ImageView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (url_logo.equals("")) {
-            Picasso.get().load(R.mipmap.logo_pizzaria_124).resize(220, 220).centerCrop().into(imgFotoLogoEmpresas);
-        } else {
-            Picasso.get().load(url_logo).resize(220, 220).centerCrop().into(imgFotoLogoEmpresas);
-        }
-
-        linearLayout_Componentes.addView(imgFotoLogoEmpresas, layoutParams_ImageView);
-        linearLayout_Componentes.addView(linearLayout_TextViews);
-
-        TextView txtNomeEmpresas = (TextView) getLayoutInflater().inflate(R.layout.layout_textview_nome_empresa, null);
-        LinearLayout.LayoutParams layoutParams_TextView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams_TextView.leftMargin = util.IntToDP(10);
-        txtNomeEmpresas.setText(psNomeEmpresa);
-
-        TextView txtResumoEmpresas = (TextView) getLayoutInflater().inflate(R.layout.layout_textview_resumo_empresa, null);
-        txtResumoEmpresas.setText(psResumoEmpresa);
-
-        linearLayout_TextViews.addView(txtNomeEmpresas, layoutParams_TextView);
-        linearLayout_TextViews.addView(txtResumoEmpresas, layoutParams_TextView);
-
-        //linearLayout_TodasEmpresas.addView(view);
-    }
-
-    private LinearLayout getLinearLayoutTextViews() {
-        clpropertyLinearLayout layoutPropery = new clpropertyLinearLayout();
-        layoutPropery.setLayout_width(ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutPropery.setLayout_height(ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutPropery.setOrientation(LinearLayout.VERTICAL);
-        layoutPropery.setGravity(Gravity.CENTER);
-        return clLinearLayout.createLinearLayout(layoutPropery);
-    }
-
-    private LinearLayout getLinearLayoutComponentes() {
-        clpropertyLinearLayout layoutPropery = new clpropertyLinearLayout();
-        layoutPropery.setLayout_width(ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutPropery.setLayout_height(ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutPropery.setOrientation(LinearLayout.HORIZONTAL);
-        layoutPropery.setMargimBottom(5);
-        layoutPropery.setMargimTop(5);
-        layoutPropery.setMargimLeft(5);
-        layoutPropery.setMargimRight(5);
-        return clLinearLayout.createLinearLayout(layoutPropery);
-    }
-
-    private LinearLayout getLinearLayoutEmpresa() {
-        clpropertyLinearLayout layoutPropery = new clpropertyLinearLayout();
-        layoutPropery.setGravity(Gravity.CENTER + Gravity.TOP);
-        layoutPropery.setLayout_width(ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutPropery.setLayout_height(ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutPropery.setOrientation(LinearLayout.VERTICAL);
-        return clLinearLayout.createLinearLayout(layoutPropery);
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.activity_principal_entrada, R.anim.activity_menu_saida);
     }
 
     private void preencheInfoUsuarioLogado() {

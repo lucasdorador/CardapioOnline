@@ -21,7 +21,7 @@ import lucas.cardapioonline.R;
 public class FragmentCardapio extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-    private String EmpresaSelecionada = "";
+    private String Key_Empresa = "";
     private LinearLayout linearLayout_RetornarMenuPrincipal;
     private RecyclerView recycleViewCardapio;
     private LinearLayoutManager mLayoutManagerTodosProdutos;
@@ -39,11 +39,11 @@ public class FragmentCardapio extends Fragment {
         final View view = inflater.inflate(R.layout.layout_cardapio, container, false);
 
         Bundle bundle = this.getArguments();
-        EmpresaSelecionada = bundle.getString("Empresa");
+        Key_Empresa = bundle.getString("Empresa");
 
         linearLayout_RetornarMenuPrincipal = view.findViewById(R.id.linearLayout_RetornarMenuPrincipal);
         recycleViewCardapio = view.findViewById(R.id.recycleViewCardapio);
-        carregarTodosProdutos(EmpresaSelecionada);
+        carregarTodosProdutos(Key_Empresa);
 
         linearLayout_RetornarMenuPrincipal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +55,7 @@ public class FragmentCardapio extends Fragment {
         return view;
     }
 
-    private void retornaCardapioCompleto(String empresaSelecionada){
+    private void retornaCardapioCompleto(String Key_Empresa){
         cardapios = new ArrayList<>();
         //referenciaFirebase = FirebaseDatabase.getInstance().getReference();
 

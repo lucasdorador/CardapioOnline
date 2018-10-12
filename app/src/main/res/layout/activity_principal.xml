@@ -63,63 +63,10 @@
 
     <View style="@style/ConfiguracaoViewMenus" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout_TodasEmpresas"
-        android:layout_width="match_parent"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleViewEmpresas"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center|top"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/linearLayout_Petiscaria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|top"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/logo_petiscaria_124" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Petiscaria Supremo Sabor"
-                        android:textColor="@color/bootstrap_gray"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Sucos, lanches e porções em geral"
-                        android:textColor="@color/bootstrap_gray"
-                        android:textSize="15dp"
-                        android:textStyle="italic" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View style="@style/ConfiguracaoViewMenus" />
-
-    </LinearLayout>
+        android:scrollbars="horizontal" />
 
 </LinearLayout>

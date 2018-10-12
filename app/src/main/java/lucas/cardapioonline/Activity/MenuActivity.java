@@ -15,7 +15,7 @@ import lucas.cardapioonline.R;
 
 public class MenuActivity extends AppCompatActivity {
 
-    public String NomeCompleto = "", GeneroUsuario = "", Acao = "", EmpresaSelecionada = "";
+    public String NomeCompleto = "", GeneroUsuario = "", Acao = "", Key_Empresa = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class MenuActivity extends AppCompatActivity {
         NomeCompleto = bundle.getString("NomeCompleto");
         GeneroUsuario = bundle.getString("Genero");
         Acao = bundle.getString("Acao");
-        EmpresaSelecionada = bundle.getString("Empresa");
+        Key_Empresa = bundle.getString("Key_Empresa");
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -58,7 +58,7 @@ public class MenuActivity extends AppCompatActivity {
     private void abreMenuCardapio() {
         FragmentCardapio fragmentCardapio = new FragmentCardapio();
         Bundle bundle = new Bundle();
-        bundle.putString("Empresa", EmpresaSelecionada);
+        bundle.putString("Empresa", Key_Empresa);
         fragmentCardapio.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()
