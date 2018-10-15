@@ -3,31 +3,42 @@ package lucas.cardapioonline.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import lucas.cardapioonline.Classes.clCardapio_Itens;
+import lucas.cardapioonline.Classes.clEmpresa;
+import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.R;
 
 public class CardapioAdapter extends RecyclerView.Adapter<CardapioAdapter.ViewHolder> {
 
     private List<clCardapio_Itens> mCardapioList;
     private Context context;
-    private DatabaseReference referenciaFirebase;
     private List<clCardapio_Itens> cardapios;
     private clCardapio_Itens todosProdutos;
+    private String Key_Empresa;
 
-    public CardapioAdapter(List<clCardapio_Itens> l, Context c) {
+    public CardapioAdapter(List<clCardapio_Itens> l, Context c, String ke) {
         context = c;
         mCardapioList = l;
+        Key_Empresa = ke;
     }
 
     @NonNull
@@ -41,41 +52,38 @@ public class CardapioAdapter extends RecyclerView.Adapter<CardapioAdapter.ViewHo
     public void onBindViewHolder(@NonNull final CardapioAdapter.ViewHolder holder, int position) {
         DecimalFormat nf = new DecimalFormat("0.00");
         final clCardapio_Itens item = mCardapioList.get(position);
-        /*cardapios = new ArrayList<>();
-        referenciaFirebase = FirebaseDatabase.getInstance().getReference();
-        referenciaFirebase.child("cardapio").orderByChild("keyProduto").equalTo(item.getKeyProduto()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                cardapios.clear();
-                for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    todosProdutos = postSnapShot.getValue(Cardapio.class);
-                    cardapios.add(todosProdutos);
-                    DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        cardapios = new ArrayList<>();
+        DatabaseReference referenciaFirebase_Produtos = FirebaseDatabase.getInstance().getReference();
 
-                    final int height = (displayMetrics.heightPixels / 4);
-                    final int width = (displayMetrics.widthPixels / 2);
+        referenciaFirebase_Produtos.child("cardapio_itens")
+                .child(Key_Empresa)
+                .orderByChild(item.getkey_produto())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        cardapios.clear();
+                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+                            todosProdutos = postSnapShot.getValue(clCardapio_Itens.class);
+                            cardapios.add(todosProdutos);
+                        }
+                    }
 
-                    Picasso.get().load(todosProdutos.getUrlImagem()).resize(width, height).centerCrop().into(holder.fotoProdutoCardapio);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            }
+                    }
+                });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
-
-        holder.cardapio_Produto.setText(item.getProduto());
-        holder.cardapio_ComplementoProduto.setText(item.getComplementoProduto());
-        if (item.getValorMeia().equals("0")) {
+        holder.cardapio_Produto.setText(item.getDescricao());
+        holder.cardapio_ComplementoProduto.setText(item.getComplemento());
+        if (item.getValor_meia().equals("0")) {
             holder.cardapio_ValorMeia.setText("--");
-        } else if (!item.getValorMeia().equals("")) {
-            holder.cardapio_ValorMeia.setText(nf.format(Double.valueOf(item.getValorMeia())));
+        } else if (!item.getValor_meia().equals("")) {
+            holder.cardapio_ValorMeia.setText(nf.format(Double.valueOf(item.getValor_meia())));
         }
 
-        if (!item.getValorInteira().equals("")) {
-            holder.cardapio_ValorInteria.setText(nf.format(Double.valueOf(item.getValorInteira())));
+        if (!item.getValor_inteira().equals("")) {
+            holder.cardapio_ValorInteria.setText(nf.format(Double.valueOf(item.getValor_inteira())));
         }
 
         holder.linearLayout_Produtos.setOnClickListener(new View.OnClickListener() {
@@ -92,15 +100,13 @@ public class CardapioAdapter extends RecyclerView.Adapter<CardapioAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        protected TextView /*cardapio_GrupoProdutos,*/ cardapio_Produto,
-                cardapio_ComplementoProduto, cardapio_ValorMeia, cardapio_ValorInteria;
+        protected TextView cardapio_Produto, cardapio_ComplementoProduto,
+                cardapio_ValorMeia, cardapio_ValorInteria;
         protected LinearLayout linearLayout_Produtos;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
-            //cardapio_GrupoProdutos = itemView.findViewById(R.id.cardapio_GrupoProdutos);
+            //Dados dos Produtos
             cardapio_Produto = itemView.findViewById(R.id.cardapio_Produto);
             cardapio_ComplementoProduto = itemView.findViewById(R.id.cardapio_ComplementoProduto);
             cardapio_ValorMeia = itemView.findViewById(R.id.cardapio_ValorMeia);

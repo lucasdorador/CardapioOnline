@@ -38,9 +38,10 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/imgCardapioLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/logo_petiscaria_124" />
+            android:src="@mipmap/empresa_sem_logo" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,29 +50,33 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/txtCardapioNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Petiscaria Supremo Sabor"
+                android:text="Nome da Empresa"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txtCardapioEndereco"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rua João Francisco Pizzato, 40 - Vila Rica II"
+                android:text="Endereço da Empresa"
                 android:textSize="10dp" />
 
 
             <TextView
+                android:id="@+id/txtCardapioTelefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Telefone: (14) 3652-3955"
+                android:text="Telefone da Empresa"
                 android:textSize="10dp" />
 
             <TextView
+                android:id="@+id/txtCardapioHorarioFuncionamento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Horário de Funcionamento: Quinta a Domingo das 18:30 as 00:00"
+                android:text="Horário de Funcionamento"
                 android:textSize="10dp" />
 
         </LinearLayout>

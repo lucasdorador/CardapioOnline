@@ -3,19 +3,31 @@ package lucas.cardapioonline.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lucas.cardapioonline.Adapter.CardapioAdapter;
 import lucas.cardapioonline.Classes.clCardapio_Itens;
+import lucas.cardapioonline.Classes.clEmpresa;
 import lucas.cardapioonline.R;
 
 public class FragmentCardapio extends Fragment {
@@ -27,6 +39,12 @@ public class FragmentCardapio extends Fragment {
     private LinearLayoutManager mLayoutManagerTodosProdutos;
     private CardapioAdapter adapter;
     private List<clCardapio_Itens> cardapios;
+    private DatabaseReference referenciaFirebase;
+    private clCardapio_Itens todosProdutos;
+    private clEmpresa EmpresaSelecionada;
+    protected TextView txtCardapioNome, txtCardapioEndereco, txtCardapioTelefone,
+            txtCardapioHorarioFuncionamento;
+    protected ImageView imgCardapioLogo;
 
     public FragmentCardapio() {
         // Required empty public constructor
@@ -39,10 +57,20 @@ public class FragmentCardapio extends Fragment {
         final View view = inflater.inflate(R.layout.layout_cardapio, container, false);
 
         Bundle bundle = this.getArguments();
-        Key_Empresa = bundle.getString("Empresa");
+        Key_Empresa = bundle.getString("Key_Empresa");
+        EmpresaSelecionada = (clEmpresa) bundle.getSerializable("ClasseEmpresa");
+
+        //Dados da Empresa
+        txtCardapioNome = view.findViewById(R.id.txtCardapioNome);
+        txtCardapioEndereco = view.findViewById(R.id.txtCardapioEndereco);
+        txtCardapioTelefone = view.findViewById(R.id.txtCardapioTelefone);
+        txtCardapioHorarioFuncionamento = view.findViewById(R.id.txtCardapioHorarioFuncionamento);
+        imgCardapioLogo = view.findViewById(R.id.imgCardapioLogo);
 
         linearLayout_RetornarMenuPrincipal = view.findViewById(R.id.linearLayout_RetornarMenuPrincipal);
         recycleViewCardapio = view.findViewById(R.id.recycleViewCardapio);
+
+        carregaDadosEmpresa(EmpresaSelecionada);
         carregarTodosProdutos(Key_Empresa);
 
         linearLayout_RetornarMenuPrincipal.setOnClickListener(new View.OnClickListener() {
@@ -55,17 +83,33 @@ public class FragmentCardapio extends Fragment {
         return view;
     }
 
-    private void retornaCardapioCompleto(String Key_Empresa){
-        cardapios = new ArrayList<>();
-        //referenciaFirebase = FirebaseDatabase.getInstance().getReference();
+    private void carregaDadosEmpresa(clEmpresa empresa){
+        txtCardapioNome.setText(empresa.getNome());
+        txtCardapioEndereco.setText(empresa.getLogradouro() + ", " + empresa.getNumero() +  " - " + empresa.getBairro());
+        txtCardapioTelefone.setText(empresa.getTelefone());
+        txtCardapioHorarioFuncionamento.setText(empresa.getHorario_funcionamento());
 
-        /*referenciaFirebase.child("cardapio").orderByChild("nomePrato").addValueEventListener(new ValueEventListener() {
+        DisplayMetrics metrics = getActivity().getResources().getDisplayMetrics();
+
+        final int height = (metrics.heightPixels / 9);
+        final int width = (metrics.widthPixels / 5);
+
+        Picasso.get().load(empresa.getUrl_logo()).resize(width, height).centerCrop().into(imgCardapioLogo);
+    }
+
+    private void retornaCardapioCompleto(String Key_Empresa) {
+        cardapios = new ArrayList<>();
+        referenciaFirebase = FirebaseDatabase.getInstance().getReference();
+
+        referenciaFirebase.child("cardapio_itens").
+                child(Key_Empresa).
+                orderByChild("descricao").
+                addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    todosCardapio = postSnapShot.getValue(Cardapio.class);
-                    cardapios.add(todosCardapio);
+                    todosProdutos = postSnapShot.getValue(clCardapio_Itens.class);
+                    cardapios.add(todosProdutos);
                 }
 
                 adapter.notifyDataSetChanged();
@@ -75,42 +119,15 @@ public class FragmentCardapio extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });*/
-
-        clCardapio_Itens itens;
-
-        itens = new clCardapio_Itens();
-        itens.setGrupo("Porções Chapeadas");
-        itens.setKeyProduto("1");
-        itens.setProduto("Contra-Filé acebolado");
-        itens.setComplementoProduto("(Acompanha pão)");
-        itens.setValorMeia("0");
-        itens.setValorInteira("52");
-        cardapios.add(0, itens);
-
-        itens = new clCardapio_Itens();
-        itens.setKeyProduto("2");
-        itens.setProduto("Picanha");
-        itens.setComplementoProduto("(Acompanha arroz e salada)");
-        itens.setValorMeia("30.00");
-        itens.setValorInteira("62.00");
-        cardapios.add(1, itens);
-
-        itens = new clCardapio_Itens();
-        itens.setKeyProduto("3");
-        itens.setProduto("Calabresa Acebolada");
-        itens.setComplementoProduto("(Acompanha pão)");
-        itens.setValorMeia("0");
-        itens.setValorInteira("35.00");
-        cardapios.add(2, itens);
+        });
     }
 
-    private void carregarTodosProdutos(String empresaSelecionada) {
+    private void carregarTodosProdutos(String Key_Empresa) {
         recycleViewCardapio.setHasFixedSize(true);
         mLayoutManagerTodosProdutos = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recycleViewCardapio.setLayoutManager(mLayoutManagerTodosProdutos);
-        retornaCardapioCompleto(empresaSelecionada);
-        adapter = new CardapioAdapter(cardapios, getActivity());
+        retornaCardapioCompleto(Key_Empresa);
+        adapter = new CardapioAdapter(cardapios, getActivity(), Key_Empresa);
         recycleViewCardapio.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

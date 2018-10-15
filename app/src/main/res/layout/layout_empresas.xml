@@ -21,7 +21,7 @@
                 android:id="@+id/img_LogoEmpresas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/logo_petiscaria_124" />
+                android:src="@mipmap/empresa_sem_logo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Petiscaria Supremo Sabor"
+                    android:text="Nome da Empresa"
                     android:textColor="@color/bootstrap_gray"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Sucos, lanches e porções em geral"
+                    android:text="Resumo da Empresa ... "
                     android:textColor="@color/bootstrap_gray"
                     android:textSize="15dp"
                     android:textStyle="italic" />

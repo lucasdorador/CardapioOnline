@@ -2,6 +2,7 @@ package lucas.cardapioonline.Adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -22,24 +23,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
 import lucas.cardapioonline.Activity.MenuActivity;
-import lucas.cardapioonline.Classes.clEmpresas_Inicial;
+import lucas.cardapioonline.Classes.clEmpresa;
 import lucas.cardapioonline.Classes.clUtil;
+import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.R;
 
 public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.ViewHolder> {
 
-    private List<clEmpresas_Inicial> mEmpresasList;
+    private List<clEmpresa> mEmpresasList;
     private Activity activity;
     private DatabaseReference referenciaFirebase;
-    private List<clEmpresas_Inicial> empresas;
-    private clEmpresas_Inicial todasEmpresas;
+    private List<clEmpresa> empresas;
+    private clEmpresa todasEmpresas;
     private clUtil util;
+    private clEmpresa EmpresaSelecionada;
 
-    public EmpresasAdapter(List<clEmpresas_Inicial> l, Activity a) {
+    public EmpresasAdapter(List<clEmpresa> l, Activity a) {
         activity = a;
         mEmpresasList = l;
         util = new clUtil(activity);
@@ -54,7 +59,7 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final EmpresasAdapter.ViewHolder holder, int position) {
-        final clEmpresas_Inicial item = mEmpresasList.get(position);
+        final clEmpresa item = mEmpresasList.get(position);
         empresas = new ArrayList<>();
         referenciaFirebase = FirebaseDatabase.getInstance().getReference();
         referenciaFirebase.child("empresa").orderByChild("nome").equalTo(item.getNome()).addValueEventListener(new ValueEventListener() {
@@ -62,7 +67,7 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.ViewHo
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 empresas.clear();
                 for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    todasEmpresas = postSnapShot.getValue(clEmpresas_Inicial.class);
+                    todasEmpresas = postSnapShot.getValue(clEmpresa.class);
                     empresas.add(todasEmpresas);
                     DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
 
@@ -81,15 +86,38 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.ViewHo
 
         holder.txtNomeEmpresa.setText(item.getNome());
         holder.txtResumoEmpresa.setText(item.getResumo());
-        holder.linearLayout_Empresas.setTag(item.getkey_empresa());
+        holder.linearLayout_Empresas.setTag(item.getKey_empresa());
         holder.linearLayout_Empresas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String EmpresaClicada = (String) view.getTag();
-                abreActivityMenus(EmpresaClicada);
+                pcdCarregaEmpresa(EmpresaClicada);
+
             }
         });
+    }
 
+    public void pcdCarregaEmpresa(String key_empresa) {
+        EmpresaSelecionada = new clEmpresa();
+        DatabaseReference reference = ConfiguracaoFirebase.getReferenciaFirebase();
+
+        reference.child("empresa")
+                .orderByChild("key_empresa")
+                .equalTo(key_empresa)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+                            EmpresaSelecionada = postSnapShot.getValue(clEmpresa.class);
+                            abreActivityMenus(EmpresaSelecionada.getKey_empresa(), EmpresaSelecionada);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     @Override
@@ -97,11 +125,12 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.ViewHo
         return mEmpresasList.size();
     }
 
-    private void abreActivityMenus(String Key_Empresa) {
+    private void abreActivityMenus(String Key_Empresa, clEmpresa clEmpresa) {
         Intent intent = new Intent(activity, MenuActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("Acao", "Cardapio");
         bundle.putString("Key_Empresa", Key_Empresa);
+        bundle.putSerializable("ClasseEmpresa", clEmpresa);
         intent.putExtras(bundle);
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(activity.getApplicationContext(), R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
         ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
@@ -114,6 +143,7 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.ViewHo
         protected TextView txtNomeEmpresa, txtResumoEmpresa;
         protected LinearLayout linearLayout_Empresas;
         protected ImageView img_LogoEmpresas;
+        protected clEmpresa EmpresaSelecionada;
 
         public ViewHolder(View itemView) {
             super(itemView);

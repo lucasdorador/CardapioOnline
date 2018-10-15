@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import java.io.Serializable;
 import java.util.List;
 
+import lucas.cardapioonline.Classes.clEmpresa;
 import lucas.cardapioonline.Fragments.FragmentCardapio;
 import lucas.cardapioonline.Fragments.FragmentMenu_Principal;
 import lucas.cardapioonline.R;
@@ -16,6 +18,7 @@ import lucas.cardapioonline.R;
 public class MenuActivity extends AppCompatActivity {
 
     public String NomeCompleto = "", GeneroUsuario = "", Acao = "", Key_Empresa = "";
+    private clEmpresa EmpresaSelecionada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class MenuActivity extends AppCompatActivity {
         GeneroUsuario = bundle.getString("Genero");
         Acao = bundle.getString("Acao");
         Key_Empresa = bundle.getString("Key_Empresa");
+        EmpresaSelecionada = (clEmpresa) bundle.getSerializable("ClasseEmpresa");
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -58,7 +62,8 @@ public class MenuActivity extends AppCompatActivity {
     private void abreMenuCardapio() {
         FragmentCardapio fragmentCardapio = new FragmentCardapio();
         Bundle bundle = new Bundle();
-        bundle.putString("Empresa", Key_Empresa);
+        bundle.putString("Key_Empresa", Key_Empresa);
+        bundle.putSerializable("ClasseEmpresa", EmpresaSelecionada);
         fragmentCardapio.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()

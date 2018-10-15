@@ -12,7 +12,6 @@ import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +27,7 @@ import java.util.List;
 
 import lucas.cardapioonline.Adapter.EmpresasAdapter;
 import lucas.cardapioonline.Classes.clConstantes;
-import lucas.cardapioonline.Classes.clEmpresas_Inicial;
+import lucas.cardapioonline.Classes.clEmpresa;
 import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.R;
@@ -44,8 +43,8 @@ public class PrincipalActivity extends AppCompatActivity {
     private RecyclerView recycleViewEmpresas;
     private LinearLayoutManager mLayoutManagerTodosProdutos;
     private EmpresasAdapter adapter;
-    private List<clEmpresas_Inicial> empresas;
-    private clEmpresas_Inicial todasEmpresas;
+    private List<clEmpresa> empresas;
+    private clEmpresa todasEmpresas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,13 +89,13 @@ public class PrincipalActivity extends AppCompatActivity {
         recycleViewEmpresas.setHasFixedSize(true);
         mLayoutManagerTodosProdutos = new LinearLayoutManager(PrincipalActivity.this, LinearLayoutManager.VERTICAL, false);
         recycleViewEmpresas.setLayoutManager(mLayoutManagerTodosProdutos);
-        retornaCardapioCompleto();
+        retornaTodasEmpresas();
         adapter = new EmpresasAdapter(empresas, PrincipalActivity.this);
         recycleViewEmpresas.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
-    private void retornaCardapioCompleto(){
+    private void retornaTodasEmpresas(){
         empresas = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference();
 
@@ -105,7 +104,7 @@ public class PrincipalActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    todasEmpresas = postSnapShot.getValue(clEmpresas_Inicial.class);
+                    todasEmpresas = postSnapShot.getValue(clEmpresa.class);
                     empresas.add(todasEmpresas);
                 }
 

@@ -3,59 +3,71 @@ package lucas.cardapioonline.Classes;
 public class clCardapio_Itens {
 
     //Dados do Cardápio
-    private String Grupo;
-    private String KeyProduto;
-    private String Produto;
-    private String ComplementoProduto;
-    private String ValorMeia;
-    private String ValorInteira;
+    private String grupo;
+    private String key_produto;
+    private String descricao;
+    private String complemento;
+    private String valor_meia;
+    private String valor_inteira;
 
-    public String getKeyProduto() {
-        return KeyProduto;
+    public clCardapio_Itens() {
+        inicializaVariaveis();
     }
 
-    public void setKeyProduto(String keyProduto) {
-        KeyProduto = keyProduto;
-    }
-
-    public String getComplementoProduto() {
-        return ComplementoProduto;
-    }
-
-    public void setComplementoProduto(String complementoProduto) {
-        ComplementoProduto = complementoProduto;
+    private void inicializaVariaveis(){
+        grupo = "";
+        key_produto = "";
+        descricao = "";
+        complemento = "";
+        valor_meia = "";
+        valor_inteira = "";
     }
 
     public String getGrupo() {
-        return Grupo;
+        return grupo;
     }
 
     public void setGrupo(String grupo) {
-        Grupo = grupo;
+        this.grupo = grupo;
     }
 
-    public String getProduto() {
-        return Produto;
+    public String getkey_produto() {
+        return key_produto;
     }
 
-    public void setProduto(String produto) {
-        Produto = produto;
+    public void setkey_produto(String key_produto) {
+        this.key_produto = key_produto;
     }
 
-    public String getValorMeia() {
-        return ValorMeia;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setValorMeia(String valorMeia) {
-        ValorMeia = valorMeia;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getValorInteira() {
-        return ValorInteira;
+    public String getComplemento() {
+        return complemento;
     }
 
-    public void setValorInteira(String valorInteira) {
-        ValorInteira = valorInteira;
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
+    public String getValor_meia() {
+        return valor_meia;
+    }
+
+    public void setValor_meia(String valor_meia) {
+        this.valor_meia = valor_meia;
+    }
+
+    public String getValor_inteira() {
+        return valor_inteira;
+    }
+
+    public void setValor_inteira(String valor_inteira) {
+        this.valor_inteira = valor_inteira;
+    }
 }

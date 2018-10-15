@@ -1,6 +1,8 @@
 package lucas.cardapioonline.Classes;
 
-public class clEmpresa {
+import java.io.Serializable;
+
+public class clEmpresa implements Serializable{
 
     private String bairro;
     private String cep;
