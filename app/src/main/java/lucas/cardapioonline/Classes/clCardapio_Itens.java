@@ -3,12 +3,12 @@ package lucas.cardapioonline.Classes;
 public class clCardapio_Itens {
 
     //Dados do Cardápio
+    private String complemento;
+    private String descricao;
     private String grupo;
     private String key_produto;
-    private String descricao;
-    private String complemento;
-    private String valor_meia;
     private String valor_inteira;
+    private String valor_meia;
 
     public clCardapio_Itens() {
         inicializaVariaveis();

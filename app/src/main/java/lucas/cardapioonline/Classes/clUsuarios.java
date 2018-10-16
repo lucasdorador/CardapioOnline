@@ -4,18 +4,36 @@ import com.google.firebase.database.Exclude;
 
 public class clUsuarios {
 
-    private String email;
-    private String senha;
-    private String nome;
-    private String idade;
-    private String keyUsuario;
-    private String tipoUsuario;
-    private String genero;
-    private String endereco;
-    private String numero;
     private String bairro;
     private String celular;
+    private String email;
+    private String endereco;
+    private String genero;
+    private String idade;
+    private String keyUsuario;
+    private String nome;
+    private String numero;
+    private String tipoUsuario;
     private String uriFotoPerfil;
+    private String senha;
+    private String cidade;
+    private String cep;
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
 
     public String getUriFotoPerfil() {
         return uriFotoPerfil;

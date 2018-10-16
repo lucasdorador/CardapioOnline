@@ -30,6 +30,7 @@ import dmax.dialog.SpotsDialog;
 import lucas.cardapioonline.Fragments.FragmentCadastro;
 import lucas.cardapioonline.Fragments.FragmentConectar;
 import lucas.cardapioonline.R;
+import lucas.cardapioonline.SQLLite.clCardapioOnline;
 
 public class MainActivity extends AppCompatActivity {
 
