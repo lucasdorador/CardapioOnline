@@ -57,7 +57,7 @@ public class CardapioAdapter extends RecyclerView.Adapter<CardapioAdapter.ViewHo
 
         referenciaFirebase_Produtos.child("cardapio_itens")
                 .child(Key_Empresa)
-                .orderByChild(item.getkey_produto())
+                .orderByChild(item.getKey_produto())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

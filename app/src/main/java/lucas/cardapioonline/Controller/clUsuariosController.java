@@ -2,10 +2,12 @@ package lucas.cardapioonline.Controller;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 import lucas.cardapioonline.Classes.clUsuarios;
-import lucas.cardapioonline.SQLLite.clCardapioOnline;
+import lucas.cardapioonline.SQLite.clCardapioOnline;
 
 public class clUsuariosController {
 
@@ -48,7 +50,7 @@ public class clUsuariosController {
 
         db = banco.getWritableDatabase();
 
-        String where = "keyUsuario = " + usuarios.getKeyUsuario();
+        String where = "keyUsuario = '" + usuarios.getKeyUsuario() + "'";
 
         valores = new ContentValues();
         valores.put("nome", usuarios.getNome());
@@ -73,9 +75,41 @@ public class clUsuariosController {
     public boolean deletaDadosUsuarios(String keyUsuarios){
         boolean resultado = true;
 
-        String where = "keyUsuario = " + keyUsuarios;
+        String where = "keyUsuario = '" + keyUsuarios + "'";
         db = banco.getReadableDatabase();
         resultado = !(db.delete("usuarios", where, null) == -1);
+        db.close();
+
+        return resultado;
+    }
+
+    public boolean existeDadosCadastrados(String keyUsuario) {
+        boolean resultado = true;
+
+        db = banco.getReadableDatabase();
+        String where = "keyUsuario = '" + keyUsuario + "'";
+        long numOfEntries = DatabaseUtils.queryNumEntries(db, "usuarios", where);
+
+        if (numOfEntries == 0l) {
+            resultado = false;
+        }
+
+        return resultado;
+    }
+
+    public String retornaConsultaUsuarioByEmail(String campo, String email){
+        String resultado = "";
+        Cursor cursor;
+        String[] campos =  {campo};
+        String where = "email = '" + email + "'";
+        db = banco.getReadableDatabase();
+        cursor = db.query("usuarios", campos, where, null, null, null, null, null);
+
+        if(cursor!=null){
+            cursor.moveToFirst();
+            resultado = cursor.getString(0);
+        }
+
         db.close();
 
         return resultado;

@@ -2,8 +2,12 @@ package lucas.cardapioonline.Activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -24,21 +28,28 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dmax.dialog.SpotsDialog;
+import lucas.cardapioonline.Classes.clCardapio_Itens;
+import lucas.cardapioonline.Classes.clEmpresa;
+import lucas.cardapioonline.Classes.clGravaDadosFirebaseSQLite;
+import lucas.cardapioonline.Classes.clUsuarios;
+import lucas.cardapioonline.Controller.clUsuariosController;
 import lucas.cardapioonline.Fragments.FragmentCadastro;
 import lucas.cardapioonline.Fragments.FragmentConectar;
 import lucas.cardapioonline.R;
-import lucas.cardapioonline.SQLLite.clCardapioOnline;
 
 public class MainActivity extends AppCompatActivity {
 
     private BootstrapButton btnConectar, btnCadastrar;
     private FirebaseAuth autenticacao;
-    private DatabaseReference reference;
+    private DatabaseReference reference, referenceItens;
     private AlertDialog dialog;
     private int PERMISSAO_REQUEST = 128;
+    private clUsuariosController usuariosController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +71,11 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //getWindow().setBackgroundDrawable(null);
-
         btnConectar = findViewById(R.id.btnConectar);
         btnCadastrar = findViewById(R.id.btnCadastrar);
         reference = FirebaseDatabase.getInstance().getReference();
         autenticacao = FirebaseAuth.getInstance();
+        usuariosController = new clUsuariosController(this);
 
         if (usuarioLogado()) {
             abrirTelaPrincipal();
@@ -82,11 +92,6 @@ public class MainActivity extends AppCompatActivity {
                     transaction.addToBackStack(null);
                     transaction.commit();
 
-                    /*getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.contentframe, new FragmentConectar(), "FragConectar")
-                            .addToBackStack(null)
-                            .commit();*/
                 }
             });
 
@@ -100,12 +105,6 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.contentframe, new FragmentCadastro(), "FragCadastro");
                     transaction.addToBackStack(null);
                     transaction.commit();
-
-                    /*getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.contentframe, new FragmentCadastro(), "FragCadastro")
-                            .addToBackStack(null)
-                            .commit();*/
                 }
             });
         }
@@ -118,31 +117,38 @@ public class MainActivity extends AppCompatActivity {
 
     private void abrirTelaPrincipal() {
         String email = autenticacao.getCurrentUser().getEmail().toString();
+        String tipoUsuario = usuariosController.retornaConsultaUsuarioByEmail("tipoUsuario", email);
 
-        reference.child("usuarios").orderByChild("email").equalTo(email.toString()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String tipoEmailUsuario = postSnapshot.child("tipoUsuario").getValue().toString();
-
-                    if (tipoEmailUsuario.equals("Administrador")) {
-
-                    } else if (tipoEmailUsuario.equals("Comum")) {
-                        Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
-                        //startActivity(intent);
-                        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
-                        ActivityCompat.startActivity(MainActivity.this, intent, optionsCompat.toBundle());
-                        dialog.dismiss();
-                        finish();
+        if (!tipoUsuario.equals("")) {
+            abreMenus(tipoUsuario);
+        } else {
+            reference.child("usuarios").orderByChild("email").equalTo(email.toString()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        String tipoEmailUsuario = postSnapshot.child("tipoUsuario").getValue().toString();
+                        abreMenus(tipoEmailUsuario);
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+    }
+
+    private void abreMenus(String tipoUsuario) {
+        if (tipoUsuario.equals("Administrador")) {
+
+        } else if (tipoUsuario.equals("Comum")) {
+            Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
+            ActivityCompat.startActivity(MainActivity.this, intent, optionsCompat.toBundle());
+            dialog.dismiss();
+            finish();
+        }
     }
 
     @Override

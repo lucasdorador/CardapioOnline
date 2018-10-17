@@ -2,10 +2,12 @@ package lucas.cardapioonline.Controller;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 import lucas.cardapioonline.Classes.clEmpresa;
-import lucas.cardapioonline.SQLLite.clCardapioOnline;
+import lucas.cardapioonline.SQLite.clCardapioOnline;
 
 public class clEmpresaController {
 
@@ -16,7 +18,7 @@ public class clEmpresaController {
         banco = new clCardapioOnline(context);
     }
 
-    public boolean insereDadosEmpresa(clEmpresa empresa){
+    public boolean insereDadosEmpresa(clEmpresa empresa) {
         ContentValues valores;
         boolean resultado = true;
 
@@ -40,13 +42,13 @@ public class clEmpresaController {
         return resultado;
     }
 
-    public boolean alteraDadosEmpresa(clEmpresa empresa){
+    public boolean alteraDadosEmpresa(clEmpresa empresa) {
         ContentValues valores;
         boolean resultado = true;
 
         db = banco.getWritableDatabase();
 
-        String where = "key_empresa = " + empresa.getKey_empresa();
+        String where = "key_empresa = '" + empresa.getKey_empresa().toString() + "'";
 
         valores = new ContentValues();
         valores.put("nome", empresa.getNome());
@@ -66,13 +68,27 @@ public class clEmpresaController {
         return resultado;
     }
 
-    public boolean deletaDadosEmpresa(String keyEmpresa){
+    public boolean deletaDadosEmpresa(String keyEmpresa) {
         boolean resultado = true;
 
-        String where = "key_empresa = " + keyEmpresa;
+        String where = "key_empresa = '" + keyEmpresa + "'";
         db = banco.getReadableDatabase();
         resultado = !(db.delete("empresa", where, null) == -1);
         db.close();
+
+        return resultado;
+    }
+
+    public boolean existeDadosCadastrados(String keyEmpresa) {
+        boolean resultado = true;
+
+        db = banco.getReadableDatabase();
+        String where = "key_empresa = '" + keyEmpresa + "'";
+        long numOfEntries = DatabaseUtils.queryNumEntries(db, "empresa", where);
+
+        if (numOfEntries == 0l) {
+            resultado = false;
+        }
 
         return resultado;
     }

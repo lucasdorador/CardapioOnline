@@ -7,6 +7,7 @@ public class clCardapio_Itens {
     private String descricao;
     private String grupo;
     private String key_produto;
+    private String key_empresa;
     private String valor_inteira;
     private String valor_meia;
 
@@ -21,6 +22,23 @@ public class clCardapio_Itens {
         complemento = "";
         valor_meia = "";
         valor_inteira = "";
+        key_empresa = "";
+    }
+
+    public String getKey_produto() {
+        return key_produto;
+    }
+
+    public void setKey_produto(String key_produto) {
+        this.key_produto = key_produto;
+    }
+
+    public String getKey_empresa() {
+        return key_empresa;
+    }
+
+    public void setKey_empresa(String key_empresa) {
+        this.key_empresa = key_empresa;
     }
 
     public String getGrupo() {
@@ -29,14 +47,6 @@ public class clCardapio_Itens {
 
     public void setGrupo(String grupo) {
         this.grupo = grupo;
-    }
-
-    public String getkey_produto() {
-        return key_produto;
-    }
-
-    public void setkey_produto(String key_produto) {
-        this.key_produto = key_produto;
     }
 
     public String getDescricao() {
