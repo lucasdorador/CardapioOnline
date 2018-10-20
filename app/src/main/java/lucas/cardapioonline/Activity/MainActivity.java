@@ -2,12 +2,8 @@ package lucas.cardapioonline.Activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -28,14 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dmax.dialog.SpotsDialog;
-import lucas.cardapioonline.Classes.clCardapio_Itens;
-import lucas.cardapioonline.Classes.clEmpresa;
-import lucas.cardapioonline.Classes.clGravaDadosFirebaseSQLite;
-import lucas.cardapioonline.Classes.clUsuarios;
 import lucas.cardapioonline.Controller.clUsuariosController;
 import lucas.cardapioonline.Fragments.FragmentCadastro;
 import lucas.cardapioonline.Fragments.FragmentConectar;

@@ -2,6 +2,9 @@ package lucas.cardapioonline.Adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.security.Key;
 import java.util.ArrayList;
@@ -74,7 +78,14 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.ViewHo
                     final int height = (metrics.heightPixels / 9);
                     final int width = (metrics.widthPixels / 5);
 
-                    Picasso.get().load(todasEmpresas.getUrl_logo()).resize(width, height).centerCrop().into(holder.img_LogoEmpresas);
+                    byte[] byteImagem = util.lerImagemArmazenamentoInterno(todasEmpresas.getKey_empresa()  + ".bmp");
+                    Drawable d = Drawable.createFromStream(new ByteArrayInputStream(byteImagem), null);
+                    //Bitmap bmp = BitmapFactory.decodeByteArray(byteImagem,0,byteImagem.length);
+                    //holder.img_LogoEmpresas.setImageBitmap(bmp);
+                    holder.img_LogoEmpresas.setImageDrawable(d);
+
+
+                    //Picasso.get().load(todasEmpresas.getUrl_logo()).resize(width, height).centerCrop().into(holder.img_LogoEmpresas);
                 }
             }
 

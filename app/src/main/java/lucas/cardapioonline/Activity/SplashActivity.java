@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -67,13 +69,18 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if (util.isConected(this)) {
-            persisisteDadosFirebase_SQLite firebase_sqLite = new persisisteDadosFirebase_SQLite();
-            firebase_sqLite.execute("Empresa e Itens", "Usuários");
+        if (usuarioLogado()) {
+            if (util.isConected(this)) {
+                persisisteDadosFirebase_SQLite firebase_sqLite = new persisisteDadosFirebase_SQLite();
+                firebase_sqLite.execute("Empresa e Itens", "Usuários");
+            } else {
+                util.MensagemRapida("Sem conexão com a internet");
+                mostrarLogin();
+            }
         } else {
-            util.MensagemRapida("Sem conexão com a internet");
             mostrarLogin();
         }
+
     }
 
     private void mostrarLogin() {
@@ -92,12 +99,12 @@ public class SplashActivity extends AppCompatActivity {
                     publishProgress(strings[i]);
                     gravarDadosSQLite_Firebase();
 
-                    if (i == 0){
-                        while ((!passouEmpresa) && (!passouItens)){
+                    if (i == 0) {
+                        while ((!passouEmpresa) && (!passouItens)) {
                             Thread.sleep(500);
                         }
-                    } else if (i ==1) {
-                        while (!passouUsuario){
+                    } else if (i == 1) {
+                        while (!passouUsuario) {
                             Thread.sleep(500);
                         }
                     }
@@ -175,4 +182,10 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
+
+    public Boolean usuarioLogado() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        return (user != null);
+    }
+
 }

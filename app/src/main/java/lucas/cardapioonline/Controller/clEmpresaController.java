@@ -1,24 +1,39 @@
 package lucas.cardapioonline.Controller;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.google.android.gms.auth.api.signin.internal.Storage;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.StorageReference;
+
 import lucas.cardapioonline.Classes.clEmpresa;
+import lucas.cardapioonline.Classes.clUtil;
+import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.SQLite.clCardapioOnline;
 
 public class clEmpresaController {
 
     private SQLiteDatabase db;
     private clCardapioOnline banco;
+    private StorageReference storageReference;
+    private clUtil util;
+    private Activity activity;
 
     public clEmpresaController(Context context) {
         banco = new clCardapioOnline(context);
+        storageReference = ConfiguracaoFirebase.getReferenciaStorage();
+        activity = (Activity) context;
+        util = new clUtil(activity);
+
     }
 
-    public boolean insereDadosEmpresa(clEmpresa empresa) {
+    public boolean insereDadosEmpresa(final clEmpresa empresa) {
         ContentValues valores;
         boolean resultado = true;
 
@@ -36,13 +51,24 @@ public class clEmpresaController {
         valores.put("telefone", empresa.getTelefone());
         valores.put("url_logo", empresa.getUrl_logo());
 
+        if (!empresa.getUrl_logo().equals("")) {
+            StorageReference storageRef = storageReference.child("fotoLogoEmpresas/" + empresa.getKey_empresa() + ".png");
+            final long ONE_MEGABYTE = 1024 * 1024;
+            storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    util.gravarImagemArmazenamentoInterno(empresa.getKey_empresa().toString() + ".bmp", bytes);
+                }
+            });
+        }
+
         resultado = !(db.insert("empresa", null, valores) == -1);
         db.close();
 
         return resultado;
     }
 
-    public boolean alteraDadosEmpresa(clEmpresa empresa) {
+    public boolean alteraDadosEmpresa(final clEmpresa empresa) {
         ContentValues valores;
         boolean resultado = true;
 
@@ -61,6 +87,17 @@ public class clEmpresaController {
         valores.put("horario_funcionamento", empresa.getHorario_funcionamento());
         valores.put("telefone", empresa.getTelefone());
         valores.put("url_logo", empresa.getUrl_logo());
+
+        if (!empresa.getUrl_logo().equals("")) {
+            StorageReference storageRef = storageReference.child("fotoLogoEmpresas/" + empresa.getKey_empresa() + ".png");
+            final long ONE_MEGABYTE = 1024 * 1024;
+            storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    util.gravarImagemArmazenamentoInterno(empresa.getKey_empresa().toString() + ".bmp", bytes);
+                }
+            });
+        }
 
         resultado = !(db.update("empresa", valores, where, null) == -1);
         db.close();

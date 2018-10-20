@@ -5,8 +5,14 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.Toast;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class clUtil {
 
     private static Activity activity;
@@ -38,5 +44,37 @@ public class clUtil {
         }
 
         return false;
+    }
+
+    public void gravarImagemArmazenamentoInterno(String NomeArquivo, byte[] Imagem){
+        try{
+            FileOutputStream fos = activity.openFileOutput(NomeArquivo, Context.MODE_PRIVATE);
+            fos.write(Imagem);
+            fos.close();
+        }catch (IOException e) {
+            Log.w("InternalStorage", "Error writing", e);
+        }
+    }
+
+    public byte[] lerImagemArmazenamentoInterno(String NomeArquivo){
+        byte [] resultado = new byte[1024];
+        int n = 0;
+
+        try{
+            FileInputStream fis;
+            fis = activity.openFileInput(NomeArquivo);
+            StringBuffer fileContent = new StringBuffer("");
+
+            while ((n = fis.read(resultado)) != -1)
+            {
+                fileContent.append(new String(resultado, 0, n));
+            }
+
+            fis.close();
+        }catch (IOException e) {
+            Log.w("InternalStorage", "Error read", e);
+        }
+
+        return resultado;
     }
 }

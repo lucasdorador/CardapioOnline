@@ -75,31 +75,30 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        String tipoChamada = "";
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
 
         if (fragments.size() > 0) {
             Fragment visibleFragment = fragments.get(0);
-            switch (visibleFragment.getTag()) {
-                case "FragPrincipal": {
+            if (visibleFragment.getTag().equals("FragEditar") ||
+                    visibleFragment.getTag().equals("FragMenuDadosPessoais") ||
+                    visibleFragment.getTag().equals("FragMenuConfigApp") ||
+                    visibleFragment.getTag().equals("FragMenuConfigApp_Rede")) {
+                tipoChamada = "Fragment";
+            } else {
+                tipoChamada = "Activity";
+            }
+
+            switch (tipoChamada) {
+                case "Activity": {
                     abrePrincipalActivity();
                     break;
                 }
-                case "FragEditar": {
+                case "Fragment": {
                     FragmentManager fm = this.getSupportFragmentManager();
                     if (fm.getBackStackEntryCount() > 0) {
                         fm.popBackStack();
                     }
-                    break;
-                }
-                case "FragMenuConfig": {
-                    FragmentManager fm = this.getSupportFragmentManager();
-                    if (fm.getBackStackEntryCount() > 0) {
-                        fm.popBackStack();
-                    }
-                    break;
-                }
-                case "FragCardapio": {
-                    abrePrincipalActivity();
                     break;
                 }
             }

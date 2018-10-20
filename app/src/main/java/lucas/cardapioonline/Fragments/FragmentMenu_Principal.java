@@ -1,6 +1,7 @@
 package lucas.cardapioonline.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
+import lucas.cardapioonline.Activity.MainActivity;
 import lucas.cardapioonline.Classes.clConstantes;
 import lucas.cardapioonline.R;
 
@@ -22,9 +25,11 @@ public class FragmentMenu_Principal extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private LinearLayout linearLayout_RetornarMenuPrincipal,
-            linearLayout_MenuConfiguracoes;
+            linearLayout_MenuConfiguracoes, linearLayout_MenuLogout,
+            linearLayout_MenuConfigApp;
     private TextView txtNomeCompletoMenuPrincipal;
     private ImageView imgFotoUsuario_Menu;
+    private FirebaseAuth autenticacao;
 
     public FragmentMenu_Principal() {
         // Required empty public constructor
@@ -38,8 +43,11 @@ public class FragmentMenu_Principal extends Fragment {
 
         linearLayout_RetornarMenuPrincipal = view.findViewById(R.id.linearLayout_RetornarMenuPrincipal);
         linearLayout_MenuConfiguracoes = view.findViewById(R.id.linearLayout_MenuConfiguracoes);
+        linearLayout_MenuLogout = view.findViewById(R.id.linearLayout_MenuLogout);
+        linearLayout_MenuConfigApp = view.findViewById(R.id.linearLayout_MenuConfigApp);
         txtNomeCompletoMenuPrincipal = view.findViewById(R.id.txtNomeCompletoMenuPrincipal);
         imgFotoUsuario_Menu = view.findViewById(R.id.imgFotoUsuario_Menu);
+        autenticacao = FirebaseAuth.getInstance();
 
         Bundle bundle = this.getArguments();
 
@@ -68,7 +76,26 @@ public class FragmentMenu_Principal extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setCustomAnimations(R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
-                transaction.replace(R.id.nav_contentframe, new FragmentMenu_Configuracoes(), "FragMenuConfig");
+                transaction.replace(R.id.nav_contentframe, new FragmentMenu_DadosPessoais(), "FragMenuDadosPessoais");
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        linearLayout_MenuLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                usuarioDesconectar();
+            }
+        });
+
+        linearLayout_MenuConfigApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
+                transaction.replace(R.id.nav_contentframe, new FragmentMenu_ConfigApp(), "FragMenuConfigApp");
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -92,5 +119,14 @@ public class FragmentMenu_Principal extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    private void usuarioDesconectar() {
+        autenticacao.signOut();
+
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }
