@@ -1,17 +1,18 @@
 package lucas.cardapioonline.Activity;
 
-import android.content.Context;
+import android.app.Dialog;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,10 +24,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import lucas.cardapioonline.Classes.clCardapio_Itens;
+import lucas.cardapioonline.Classes.clConfiguracoes;
 import lucas.cardapioonline.Classes.clEmpresa;
 import lucas.cardapioonline.Classes.clGravaDadosFirebaseSQLite;
 import lucas.cardapioonline.Classes.clUsuarios;
 import lucas.cardapioonline.Classes.clUtil;
+import lucas.cardapioonline.Helper.Preferencias;
 import lucas.cardapioonline.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -44,6 +47,11 @@ public class SplashActivity extends AppCompatActivity {
     private clCardapio_Itens todosItens;
     private clGravaDadosFirebaseSQLite dadosFirebaseSQLite;
     private clUtil util;
+    private clConfiguracoes configuracoes;
+    private String mensagemConexao = "";
+    private Preferencias preferencias;
+    private boolean resultPreferencias = false;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,8 @@ public class SplashActivity extends AppCompatActivity {
         dadosFirebaseSQLite = new clGravaDadosFirebaseSQLite(this);
         reference = FirebaseDatabase.getInstance().getReference();
         util = new clUtil(SplashActivity.this);
+        preferencias = new Preferencias(this, "app.InternetDadosMoveis");
+        dialog = new Dialog(this);
 
         RequestOptions options = new RequestOptions()
                 .fitCenter()
@@ -69,15 +79,26 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        configuracoes = clConfiguracoes.getInstance(this);
+
         if (usuarioLogado()) {
             if (util.isConected(this)) {
-                persisisteDadosFirebase_SQLite firebase_sqLite = new persisisteDadosFirebase_SQLite();
-                firebase_sqLite.execute("Empresa e Itens", "Usuários");
+                if ((validaAtualizacao_Wifi_DadosMoveis(configuracoes)) && resultPreferencias) {
+                   persisisteDadosFirebase_SQLite firebase_sqLite = new persisisteDadosFirebase_SQLite();
+                   firebase_sqLite.execute("Empresa e Itens", "Usuários");
+                } else if (!resultPreferencias) {
+                    finish();
+                } else {
+                    util.MensagemRapida(mensagemConexao);
+                    mostrarLogin();
+                }
             } else {
                 util.MensagemRapida("Sem conexão com a internet");
                 mostrarLogin();
             }
-        } else {
+        } else
+
+        {
             mostrarLogin();
         }
 
@@ -87,6 +108,37 @@ public class SplashActivity extends AppCompatActivity {
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private boolean validaAtualizacao_Wifi_DadosMoveis(clConfiguracoes c) {
+        boolean resultado = true;
+        resultPreferencias = true;
+        mensagemConexao = "";
+
+        if (!c.dadosWifi() && !c.dadosMoveis()) {
+            resultado = false;
+            mensagemConexao = "Nenhuma opção para atualização está configurada, verifique nas opção" +
+                    "de configuração do App no menu configurações!";
+        } else if ((c.dadosWifi()) && (!util.conexaoWifi(this))) {
+            resultado = false;
+            mensagemConexao = "Atualização somente por Wifi. Conecte-se para poder atualizar";
+        } else if ((c.dadosMoveis()) && (!util.conexaoDadosMoveis(this))) {
+            resultado = false;
+            mensagemConexao = "Atualização somente por Dados Móveis. Conecte-se para poder atualizar";
+        } else if ((c.dadosMoveis()) && (util.conexaoDadosMoveis(this))) {
+            String _preferencia = preferencias.getSecaoPreferencias("DadosMoveis");
+            if ((_preferencia.equals("NAO")) || _preferencia.equals("LEMBRAR") || _preferencia.equals("")) {
+                resultado = true;
+                mensagemConexao = "Atualização por Dados Móveis poderá ser cobrado de sua franquia de internet," +
+                        "deseja continuar?";
+                abrirDialogPersonalizado3Botoes(mensagemConexao);
+            } else {
+                resultado = true;
+                mensagemConexao = "";
+            }
+        }
+
+        return resultado;
     }
 
     private class persisisteDadosFirebase_SQLite extends AsyncTask<String, String, Boolean> {
@@ -125,6 +177,7 @@ public class SplashActivity extends AppCompatActivity {
         protected void onProgressUpdate(String... values) {
             txtAguarde.setText("Atualizando tabelas ... " + values[0]);
         }
+
     }
 
     private void gravarDadosSQLite_Firebase() {
@@ -186,6 +239,63 @@ public class SplashActivity extends AppCompatActivity {
     public Boolean usuarioLogado() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         return (user != null);
+    }
+
+    private void abrirDialogPersonalizado3Botoes(String mensagem) {
+        if (!mensagem.equals("")) {
+            dialog.setContentView(R.layout.alert_personalizado_3botoes);
+            dialog.setCancelable(false);
+
+            final TextView txtMensagem;
+            final BootstrapButton btn1, btn2, btn3;
+
+            txtMensagem = dialog.findViewById(R.id.txtTexto);
+            txtMensagem.setText(mensagem);
+
+            btn1 = dialog.findViewById(R.id.btn1);
+            btn1.setText("SIM");
+            btn1.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
+
+            btn2 = dialog.findViewById(R.id.btn2);
+            btn2.setText("NÃO");
+            btn2.setBootstrapBrand(DefaultBootstrapBrand.DANGER);
+
+            btn3 = dialog.findViewById(R.id.btn3);
+            btn3.setText("LEMBRAR DEPOIS");
+            btn3.setBootstrapBrand(DefaultBootstrapBrand.INFO);
+
+            btn1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    resultPreferencias = true;
+                    preferencias.salvarPreferencias("SIM", "DadosMoveis");
+                    dialog.dismiss();
+                }
+            });
+
+            btn2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    resultPreferencias = false;
+                    preferencias.salvarPreferencias("NAO", "DadosMoveis");
+                    dialog.dismiss();
+                }
+            });
+
+            btn3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    resultPreferencias = true;
+                    preferencias.salvarPreferencias("LEMBRAR", "DadosMoveis");
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+
+        } else {
+            resultPreferencias = true;
+        }
     }
 
 }

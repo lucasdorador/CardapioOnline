@@ -29,7 +29,7 @@ import lucas.cardapioonline.Activity.PrincipalActivity;
 import lucas.cardapioonline.Classes.clUsuarios;
 import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
-import lucas.cardapioonline.Helper.Preferencias;
+import lucas.cardapioonline.Helper.Preferencias_Usuario;
 import lucas.cardapioonline.R;
 
 public class FragmentConectar extends Fragment {
@@ -134,8 +134,8 @@ public class FragmentConectar extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     abrirTelaPrincipal();
-                    Preferencias preferencias = new Preferencias(getActivity());
-                    preferencias.salvarUsuarioPreferencias(usuario.getEmail(), usuario.getSenha());
+                    Preferencias_Usuario preferenciasUsuario = new Preferencias_Usuario(getActivity());
+                    preferenciasUsuario.salvarUsuarioPreferencias(usuario.getEmail(), usuario.getSenha());
                     dialog.dismiss();
                     util.MensagemRapida("Login efetuado com sucesso!");
                 } else {

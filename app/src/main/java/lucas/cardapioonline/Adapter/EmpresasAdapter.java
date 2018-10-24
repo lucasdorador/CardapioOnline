@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,39 +16,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
-
-import java.io.ByteArrayInputStream;
-import java.io.Serializable;
-import java.security.Key;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 import lucas.cardapioonline.Activity.MenuActivity;
 import lucas.cardapioonline.Classes.clEmpresa;
 import lucas.cardapioonline.Classes.clUtil;
-import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
+import lucas.cardapioonline.Controller.clEmpresaController;
 import lucas.cardapioonline.R;
 
 public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.ViewHolder> {
 
     private List<clEmpresa> mEmpresasList;
     private Activity activity;
-    private DatabaseReference referenciaFirebase;
-    private List<clEmpresa> empresas;
-    private clEmpresa todasEmpresas;
     private clUtil util;
     private clEmpresa EmpresaSelecionada;
+    private clEmpresaController empresaController;
 
     public EmpresasAdapter(List<clEmpresa> l, Activity a) {
         activity = a;
         mEmpresasList = l;
         util = new clUtil(activity);
+        empresaController = new clEmpresaController(activity);
     }
 
     @NonNull
@@ -64,36 +50,14 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull final EmpresasAdapter.ViewHolder holder, int position) {
         final clEmpresa item = mEmpresasList.get(position);
-        empresas = new ArrayList<>();
-        referenciaFirebase = FirebaseDatabase.getInstance().getReference();
-        referenciaFirebase.child("empresa").orderByChild("nome").equalTo(item.getNome()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                empresas.clear();
-                for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    todasEmpresas = postSnapShot.getValue(clEmpresa.class);
-                    empresas.add(todasEmpresas);
-                    DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
 
-                    final int height = (metrics.heightPixels / 9);
-                    final int width = (metrics.widthPixels / 5);
-
-                    byte[] byteImagem = util.lerImagemArmazenamentoInterno(todasEmpresas.getKey_empresa()  + ".bmp");
-                    Drawable d = Drawable.createFromStream(new ByteArrayInputStream(byteImagem), null);
-                    //Bitmap bmp = BitmapFactory.decodeByteArray(byteImagem,0,byteImagem.length);
-                    //holder.img_LogoEmpresas.setImageBitmap(bmp);
-                    holder.img_LogoEmpresas.setImageDrawable(d);
-
-
-                    //Picasso.get().load(todasEmpresas.getUrl_logo()).resize(width, height).centerCrop().into(holder.img_LogoEmpresas);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        try {
+            byte[] byteImagem = util.lerImagemArmazenamentoInterno(activity, item.getKey_empresa());
+            Bitmap bmp = BitmapFactory.decodeByteArray(byteImagem,0,byteImagem.length);
+            holder.img_LogoEmpresas.setImageBitmap(bmp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         holder.txtNomeEmpresa.setText(item.getNome());
         holder.txtResumoEmpresa.setText(item.getResumo());
@@ -102,33 +66,15 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 String EmpresaClicada = (String) view.getTag();
-                pcdCarregaEmpresa(EmpresaClicada);
+                pcdCarregaEmpresa_SQLite(EmpresaClicada);
 
             }
         });
     }
 
-    public void pcdCarregaEmpresa(String key_empresa) {
-        EmpresaSelecionada = new clEmpresa();
-        DatabaseReference reference = ConfiguracaoFirebase.getReferenciaFirebase();
-
-        reference.child("empresa")
-                .orderByChild("key_empresa")
-                .equalTo(key_empresa)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                            EmpresaSelecionada = postSnapShot.getValue(clEmpresa.class);
-                            abreActivityMenus(EmpresaSelecionada.getKey_empresa(), EmpresaSelecionada);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+    public void pcdCarregaEmpresa_SQLite(String keyEmpresa){
+        EmpresaSelecionada = empresaController.retornaClasseEmpresaSQLite(keyEmpresa);
+        abreActivityMenus(EmpresaSelecionada.getKey_empresa(), EmpresaSelecionada);
     }
 
     @Override
@@ -154,7 +100,6 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.ViewHo
         protected TextView txtNomeEmpresa, txtResumoEmpresa;
         protected LinearLayout linearLayout_Empresas;
         protected ImageView img_LogoEmpresas;
-        protected clEmpresa EmpresaSelecionada;
 
         public ViewHolder(View itemView) {
             super(itemView);

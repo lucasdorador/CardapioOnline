@@ -12,6 +12,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.StorageReference;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import lucas.cardapioonline.Classes.clEmpresa;
 import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
@@ -57,7 +61,7 @@ public class clEmpresaController {
             storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
-                    util.gravarImagemArmazenamentoInterno(empresa.getKey_empresa().toString() + ".bmp", bytes);
+                    util.gravarImagemArmazenamento(empresa.getKey_empresa().toString(), bytes);
                 }
             });
         }
@@ -94,7 +98,7 @@ public class clEmpresaController {
             storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
-                    util.gravarImagemArmazenamentoInterno(empresa.getKey_empresa().toString() + ".bmp", bytes);
+                    util.gravarImagemArmazenamento(empresa.getKey_empresa().toString(), bytes);
                 }
             });
         }
@@ -128,5 +132,63 @@ public class clEmpresaController {
         }
 
         return resultado;
+    }
+
+    public List<clEmpresa> retornaListaClasseEmpresaSQLite() {
+        List<clEmpresa> empresalist = new ArrayList<>();
+
+
+        SQLiteDatabase db = banco.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM empresa", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                clEmpresa empresa = new clEmpresa();
+                empresa.setBairro(cursor.getString(cursor.getColumnIndex("bairro")));
+                empresa.setCep(cursor.getString(cursor.getColumnIndex("cep")));
+                empresa.setCidade(cursor.getString(cursor.getColumnIndex("cidade")));
+                empresa.setHorario_funcionamento(cursor.getString(cursor.getColumnIndex("horario_funcionamento")));
+                empresa.setLogradouro(cursor.getString(cursor.getColumnIndex("logradouro")));
+                empresa.setKey_empresa(cursor.getString(cursor.getColumnIndex("key_empresa")));
+                empresa.setNome(cursor.getString(cursor.getColumnIndex("nome")));
+                empresa.setNumero(cursor.getString(cursor.getColumnIndex("numero")));
+                empresa.setResumo(cursor.getString(cursor.getColumnIndex("resumo")));
+                empresa.setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
+                empresa.setUrl_logo(cursor.getString(cursor.getColumnIndex("url_logo")));
+
+                empresalist.add(empresa);
+
+            }
+            while (cursor.moveToNext());
+        }
+
+        return empresalist;
+
+    }
+
+    public clEmpresa retornaClasseEmpresaSQLite(String keyEmpresa) {
+        clEmpresa empresa = new clEmpresa();
+        SQLiteDatabase db = banco.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM empresa WHERE key_empresa = ?", new String[]{keyEmpresa});
+
+        if (cursor.moveToFirst()) {
+            do {
+                empresa.setBairro(cursor.getString(cursor.getColumnIndex("bairro")));
+                empresa.setCep(cursor.getString(cursor.getColumnIndex("cep")));
+                empresa.setCidade(cursor.getString(cursor.getColumnIndex("cidade")));
+                empresa.setHorario_funcionamento(cursor.getString(cursor.getColumnIndex("horario_funcionamento")));
+                empresa.setLogradouro(cursor.getString(cursor.getColumnIndex("logradouro")));
+                empresa.setKey_empresa(cursor.getString(cursor.getColumnIndex("key_empresa")));
+                empresa.setNome(cursor.getString(cursor.getColumnIndex("nome")));
+                empresa.setNumero(cursor.getString(cursor.getColumnIndex("numero")));
+                empresa.setResumo(cursor.getString(cursor.getColumnIndex("resumo")));
+                empresa.setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
+                empresa.setUrl_logo(cursor.getString(cursor.getColumnIndex("url_logo")));
+            }
+            while (cursor.moveToNext());
+        }
+
+        return empresa;
+
     }
 }

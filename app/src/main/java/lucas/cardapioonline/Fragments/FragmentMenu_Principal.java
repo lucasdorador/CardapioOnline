@@ -15,10 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.squareup.picasso.Picasso;
 
 import lucas.cardapioonline.Activity.MainActivity;
 import lucas.cardapioonline.Classes.clConstantes;
+import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.R;
 
 public class FragmentMenu_Principal extends Fragment {
@@ -30,6 +30,7 @@ public class FragmentMenu_Principal extends Fragment {
     private TextView txtNomeCompletoMenuPrincipal;
     private ImageView imgFotoUsuario_Menu;
     private FirebaseAuth autenticacao;
+    private clUtil util;
 
     public FragmentMenu_Principal() {
         // Required empty public constructor
@@ -48,6 +49,7 @@ public class FragmentMenu_Principal extends Fragment {
         txtNomeCompletoMenuPrincipal = view.findViewById(R.id.txtNomeCompletoMenuPrincipal);
         imgFotoUsuario_Menu = view.findViewById(R.id.imgFotoUsuario_Menu);
         autenticacao = FirebaseAuth.getInstance();
+        util = new clUtil(getActivity());
 
         Bundle bundle = this.getArguments();
 
@@ -56,11 +58,11 @@ public class FragmentMenu_Principal extends Fragment {
         String GeneroUsuario = bundle.getString("Genero");
 
         if (GeneroUsuario.equals("Masculino")) {
-            Picasso.get().load(R.mipmap.avatar_masc_124).resize(clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height).centerCrop().into(imgFotoUsuario_Menu);
+            util.carregaImagem_ImageView(R.mipmap.avatar_masc_124, imgFotoUsuario_Menu, clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height);
         } else if (GeneroUsuario.equals("Feminino")) {
-            Picasso.get().load(R.mipmap.avatar_fem_124).resize(clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height).centerCrop().into(imgFotoUsuario_Menu);
+            util.carregaImagem_ImageView(R.mipmap.avatar_fem_124, imgFotoUsuario_Menu, clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height);
         } else {
-            Picasso.get().load(R.mipmap.avatar_user_124).resize(clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height).centerCrop().into(imgFotoUsuario_Menu);
+            util.carregaImagem_ImageView(R.mipmap.avatar_user_124, imgFotoUsuario_Menu, clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height);
         }
 
         linearLayout_RetornarMenuPrincipal.setOnClickListener(new View.OnClickListener() {

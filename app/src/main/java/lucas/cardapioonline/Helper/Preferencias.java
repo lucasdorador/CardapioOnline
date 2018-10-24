@@ -7,30 +7,23 @@ public class Preferencias {
 
     private Context context;
     private SharedPreferences preferences;
-    private String NOME_ARQUIVO = "app.preferencias_cardapio";
+    private String NOME_ARQUIVO;
     private int MODE = 0;
     private SharedPreferences.Editor editor;
 
-    private final String EMAIL_USUARIO_LOGADO = "email_usuario_logado";
-    private final String SENHA_USUARIO_LOGADO = "senha_usuario_logado";
-
-    public Preferencias(Context contextoParametros){
+    public Preferencias(Context contextoParametros, String nome_arquivo){
         context = contextoParametros;
+        NOME_ARQUIVO = nome_arquivo;
         preferences = context.getSharedPreferences(NOME_ARQUIVO, MODE);
         editor = preferences.edit();
     }
 
-    public void salvarUsuarioPreferencias(String email, String senha){
-        editor.putString(EMAIL_USUARIO_LOGADO, email);
-        editor.putString(SENHA_USUARIO_LOGADO, senha);
+    public void salvarPreferencias(String dadosGravar, String nomeSecao){
+        editor.putString(nomeSecao, dadosGravar);
         editor.commit();
     }
 
-    public String getEMAIL_USUARIO_LOGADO(){
-        return preferences.getString(EMAIL_USUARIO_LOGADO, null);
-    }
-
-    public String getSENHA_USUARIO_LOGADO(){
-        return preferences.getString(SENHA_USUARIO_LOGADO, null);
+    public String getSecaoPreferencias(String nomeSecao){
+        return preferences.getString(nomeSecao, "");
     }
 }

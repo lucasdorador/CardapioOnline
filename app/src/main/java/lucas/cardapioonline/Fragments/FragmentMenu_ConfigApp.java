@@ -1,7 +1,6 @@
 package lucas.cardapioonline.Fragments;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +13,7 @@ import android.widget.Switch;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 
+import lucas.cardapioonline.Classes.clConfiguracoes;
 import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.Controller.clConfiguracoesController;
 import lucas.cardapioonline.R;
@@ -25,8 +25,9 @@ public class FragmentMenu_ConfigApp extends Fragment {
     private BootstrapButton btnSalvarConfigREDE;
     private Switch SwitchDadosWifi, SwitchDadosMoveis, SwitchArmazenamento;
     private clConfiguracoesController controller;
+    private clConfiguracoes configuracoes;
     private clUtil util;
-    String vlsDadosmoveis = "false", vlsDadoswifi = "false", vlsDadosArmazenamento = "false";
+    Boolean vlBDadosmoveis = false, vlBDadoswifi = false, vlBDadosArmazenamento = false;
 
     public FragmentMenu_ConfigApp() {
 
@@ -47,32 +48,39 @@ public class FragmentMenu_ConfigApp extends Fragment {
 
         carregaConfiguracoes();
 
+        SwitchArmazenamento.setChecked(util.armazenamentoExternoAcessivel());
+        SwitchArmazenamento.setEnabled(util.armazenamentoExternoAcessivel());
+
         SwitchDadosWifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                vlsDadoswifi = String.valueOf(b);
+                vlBDadoswifi = b;
             }
         });
 
         SwitchDadosMoveis.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                vlsDadosmoveis = String.valueOf(b);
+                vlBDadosmoveis = b;
             }
         });
 
         SwitchArmazenamento.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                vlsDadosArmazenamento = String.valueOf(b);
+                vlBDadosArmazenamento = b;
             }
         });
 
         btnSalvarConfigREDE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                controller.insereDadosConfiguracoes(vlsDadosmoveis, vlsDadoswifi, vlsDadosArmazenamento);
-                getActivity().onBackPressed();
+                controller.insereDadosConfiguracoes(String.valueOf(vlBDadosmoveis),
+                        String.valueOf(vlBDadoswifi),
+                        String.valueOf(vlBDadosArmazenamento));
+                configuracoes.atualizaDados(vlBDadosmoveis, vlBDadoswifi, vlBDadosArmazenamento);
+
+                util.MensagemRapida("Dados atualizados!");
             }
         });
 
@@ -103,17 +111,15 @@ public class FragmentMenu_ConfigApp extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void carregaConfiguracoes(){
-        Cursor cursor = controller.retornaConsultaConfiguracoes();
+    private void carregaConfiguracoes() {
+        configuracoes = clConfiguracoes.getInstance(getContext());
+        vlBDadosmoveis = configuracoes.dadosMoveis();
+        vlBDadoswifi = configuracoes.dadosWifi();
+        vlBDadosArmazenamento = configuracoes.armazenamentoExterno();
 
-        if(cursor!=null) {
-            SwitchDadosMoveis.setChecked(Boolean.valueOf(cursor.getString(cursor.getColumnIndex("configapp_redemoveis"))));
-            SwitchDadosWifi.setChecked(Boolean.valueOf(cursor.getString(cursor.getColumnIndex("configapp_redewifi"))));
-            SwitchArmazenamento.setChecked(Boolean.valueOf(cursor.getString(cursor.getColumnIndex("configapp_armaz_externo"))));
+        SwitchDadosMoveis.setChecked(vlBDadosmoveis);
+        SwitchDadosWifi.setChecked(vlBDadoswifi);
+        SwitchArmazenamento.setChecked(vlBDadosArmazenamento);
 
-            util.MensagemRapida("Dados Moveis: " + cursor.getString(cursor.getColumnIndex("configapp_redemoveis"))
-                    + "Dados Wifi:" + cursor.getString(cursor.getColumnIndex("configapp_redewifi"))
-                    + "Aramzenamento: " + cursor.getString(cursor.getColumnIndex("configapp_armaz_externo")));
-        }
     }
 }

@@ -46,8 +46,8 @@ public class clConfiguracoesController {
 
             db = banco.getWritableDatabase();
             valores = new ContentValues();
-            valores.put("configapp_redemoveis", "false");
-            valores.put("configapp_redewifi", "false");
+            valores.put("configapp_redemoveis", "true");
+            valores.put("configapp_redewifi", "true");
             valores.put("configapp_armaz_externo", "false");
 
             db.insert("configuracoes", null, valores);
@@ -65,7 +65,6 @@ public class clConfiguracoesController {
         }
         return cursor;
     }
-
 
     private boolean existeDadosConfiguracao() {
         boolean resultado = true;

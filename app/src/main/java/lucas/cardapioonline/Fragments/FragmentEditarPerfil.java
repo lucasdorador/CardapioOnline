@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import lucas.cardapioonline.Classes.clMascara;
 import lucas.cardapioonline.Classes.clUsuarios;
@@ -270,7 +269,7 @@ public class FragmentEditarPerfil extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if ((resultCode == getActivity().RESULT_OK) && (requestCode == 123)) {
             Uri imagemSelecionada = data.getData();
-            Picasso.get().load(imagemSelecionada.toString()).resize(width, height).centerCrop().into(imgEditarFotoPerfil);
+            util.carregaImagem_ImageView(imagemSelecionada.toString(), imgEditarFotoPerfil, width, height);
         }
     }
 

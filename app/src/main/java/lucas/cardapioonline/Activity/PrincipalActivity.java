@@ -2,8 +2,6 @@ package lucas.cardapioonline.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,22 +11,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lucas.cardapioonline.Adapter.EmpresasAdapter;
 import lucas.cardapioonline.Classes.clConstantes;
 import lucas.cardapioonline.Classes.clEmpresa;
 import lucas.cardapioonline.Classes.clUtil;
+import lucas.cardapioonline.Controller.clEmpresaController;
+import lucas.cardapioonline.Controller.clUsuariosController;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.R;
 
@@ -42,9 +35,10 @@ public class PrincipalActivity extends AppCompatActivity {
     private clUtil util;
     private RecyclerView recycleViewEmpresas;
     private LinearLayoutManager mLayoutManagerTodosProdutos;
-    private EmpresasAdapter adapter;
+    private EmpresasAdapter adapterSQLite;
     private List<clEmpresa> empresas;
-    private clEmpresa todasEmpresas;
+    private clEmpresaController empresaController;
+    private clUsuariosController usuarioController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +49,15 @@ public class PrincipalActivity extends AppCompatActivity {
         imgPrincipalFoto = findViewById(R.id.imgPrincipalFoto);
         txtSaudacaoInicial = findViewById(R.id.txtSaudacaoInicial);
         util = new clUtil(PrincipalActivity.this);
+        empresaController = new clEmpresaController(this);
+        usuarioController = new clUsuariosController(this);
 
         recycleViewEmpresas = findViewById(R.id.recycleViewEmpresas);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        preencheInfoUsuarioLogado();
+        preencheInfoUsuarioLogado_SQLite();
 
         carregarTodasEmpresas();
 
@@ -90,32 +86,13 @@ public class PrincipalActivity extends AppCompatActivity {
         mLayoutManagerTodosProdutos = new LinearLayoutManager(PrincipalActivity.this, LinearLayoutManager.VERTICAL, false);
         recycleViewEmpresas.setLayoutManager(mLayoutManagerTodosProdutos);
         retornaTodasEmpresas();
-        adapter = new EmpresasAdapter(empresas, PrincipalActivity.this);
-        recycleViewEmpresas.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        adapterSQLite = new EmpresasAdapter(empresas, PrincipalActivity.this);
+        recycleViewEmpresas.setAdapter(adapterSQLite);
+        adapterSQLite.notifyDataSetChanged();
     }
 
-    private void retornaTodasEmpresas(){
-        empresas = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference();
-
-        reference.child("empresa").orderByChild("nome").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    todasEmpresas = postSnapShot.getValue(clEmpresa.class);
-                    empresas.add(todasEmpresas);
-                }
-
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+    private void retornaTodasEmpresas() {
+        empresas = empresaController.retornaListaClasseEmpresaSQLite();
     }
 
     @Override
@@ -124,39 +101,29 @@ public class PrincipalActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.activity_principal_entrada, R.anim.activity_menu_saida);
     }
 
-    private void preencheInfoUsuarioLogado() {
+    private void preencheInfoUsuarioLogado_SQLite() {
         String emailUsuarioLogado = autenticacao.getCurrentUser().getEmail().toString();
+        String[] infoUsuario = usuarioController.retornaCamposUsuarioByEmail(new String[]{"nome", "genero"}, emailUsuarioLogado);
 
-        reference.child("usuarios").orderByChild("email").equalTo(emailUsuarioLogado.toString()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    String nomeUsuarioLogado = postSnapShot.child("nome").getValue().toString();
-                    GeneroUsuario = postSnapShot.child("genero").getValue().toString();
-                    NomeCompleto = nomeUsuarioLogado;
+        if (infoUsuario.length != 0) {
+            String nomeUsuarioLogado = infoUsuario[0];
+            GeneroUsuario = infoUsuario[1];
+            NomeCompleto = nomeUsuarioLogado;
 
-                    if (GeneroUsuario.equals("Masculino")) {
-                        Picasso.get().load(R.mipmap.avatar_masc_124).resize(clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height).centerCrop().into(imgPrincipalFoto);
-                    } else if (GeneroUsuario.equals("Feminino")) {
-                        Picasso.get().load(R.mipmap.avatar_fem_124).resize(clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height).centerCrop().into(imgPrincipalFoto);
-                    } else {
-                        Picasso.get().load(R.mipmap.avatar_user_124).resize(clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height).centerCrop().into(imgPrincipalFoto);
-                    }
-
-                    if (nomeUsuarioLogado.indexOf(" ") > 0) {
-                        txtSaudacaoInicial.setText(nomeUsuarioLogado.substring(0, nomeUsuarioLogado.indexOf(" ")));
-                    } else {
-                        txtSaudacaoInicial.setText(nomeUsuarioLogado);
-                    }
-
-                }
+            if (GeneroUsuario.equals("Masculino")) {
+                util.carregaImagem_ImageView(R.mipmap.avatar_masc_124, imgPrincipalFoto, clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height);
+            } else if (GeneroUsuario.equals("Feminino")) {
+                util.carregaImagem_ImageView(R.mipmap.avatar_fem_124, imgPrincipalFoto, clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height);
+            } else {
+                util.carregaImagem_ImageView(R.mipmap.avatar_user_124, imgPrincipalFoto, clConstantes.TamanhoFotoPerfil_Width, clConstantes.TamanhoFotoPerfil_Height);
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            if (nomeUsuarioLogado.indexOf(" ") > 0) {
+                txtSaudacaoInicial.setText(nomeUsuarioLogado.substring(0, nomeUsuarioLogado.indexOf(" ")));
+            } else {
+                txtSaudacaoInicial.setText(nomeUsuarioLogado);
             }
-        });
+        }
+
     }
-
 }

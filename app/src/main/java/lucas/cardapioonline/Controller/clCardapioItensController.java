@@ -2,8 +2,12 @@ package lucas.cardapioonline.Controller;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import lucas.cardapioonline.Classes.clCardapio_Itens;
 import lucas.cardapioonline.SQLite.clCardapioOnline;
@@ -90,5 +94,32 @@ public class clCardapioItensController {
         }
 
         return resultado;
+    }
+
+    public List<clCardapio_Itens> retornaListaClasseItensCardapio(String key_empresa) {
+        List<clCardapio_Itens> cardapioItensList = new ArrayList<>();
+        SQLiteDatabase db = banco.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM cardapio_itens WHERE key_empresa = ?", new String[]{key_empresa});
+
+        if (cursor.moveToFirst()) {
+            do {
+                clCardapio_Itens cardapioItens = new clCardapio_Itens();
+
+                cardapioItens.setComplemento(cursor.getString(cursor.getColumnIndex("complemento")));
+                cardapioItens.setDescricao(cursor.getString(cursor.getColumnIndex("descricao")));
+                cardapioItens.setGrupo(cursor.getString(cursor.getColumnIndex("grupo")));
+                cardapioItens.setKey_empresa(cursor.getString(cursor.getColumnIndex("key_empresa")));
+                cardapioItens.setKey_produto(cursor.getString(cursor.getColumnIndex("key_produto")));
+                cardapioItens.setValor_inteira(cursor.getString(cursor.getColumnIndex("valor_inteira")));
+                cardapioItens.setValor_meia(cursor.getString(cursor.getColumnIndex("valor_meia")));
+
+                cardapioItensList.add(cardapioItens);
+
+            }
+            while (cursor.moveToNext());
+        }
+
+        return cardapioItensList;
+
     }
 }

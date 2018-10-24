@@ -10,7 +10,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clEmpresaController.java" line="59" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java" line="85" mnemonic="1" />
   </component>
   <component name="CMakeSettings">
     <configurations>
@@ -19,38 +19,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="decbbcba-2a58-4930-8386-c76374a3ae6f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clConfiguracoesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_ConfigApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_perm_identity_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_signal_wifi_2_bar_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_storage_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_menu_configapp.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clConfiguracoes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Helper/Preferencias_Usuario.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/alert_personalizado_3botoes.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_exifinterface_27_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_10_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_14_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_71828.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MenuActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MenuActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/PrincipalActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/PrincipalActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/CardapioAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/CardapioAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clCardapioItensController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clCardapioItensController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clConfiguracoesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clConfiguracoesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clEmpresaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clEmpresaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_Configuracoes.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_DadosPessoais.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clUsuariosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clUsuariosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentCardapio.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentCardapio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentConectar.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentConectar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentEditarPerfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentEditarPerfil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_ConfigApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_ConfigApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_Principal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_menu_configuracoes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_menu_dados_pessoais.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_menu_principal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_menu_principal.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Helper/Preferencias.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Helper/Preferencias.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/MainActivity.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -73,42 +70,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="FragmentMenu_ConfigApp.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_ConfigApp.java">
+      <file leaf-file-name="SplashActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="116" column="9" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
+            <state relative-caret-position="135">
+              <caret line="86" column="61" selection-start-line="86" selection-start-column="61" selection-end-line="86" selection-end-column="61" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1726#1932#0" expanded="true" />
-                <element signature="e#1931#1932#0" expanded="true" />
-                <element signature="e#2010#2237#0" expanded="true" />
-                <element signature="e#2236#2237#0" expanded="true" />
-                <element signature="e#2296#2523#0" expanded="true" />
-                <element signature="e#2522#2523#0" expanded="true" />
-                <element signature="e#1605#1763#0" expanded="true" />
-                <element signature="e#1762#1763#0" expanded="true" />
-                <element signature="e#1657#1823#0" expanded="true" />
-                <element signature="e#1822#1823#0" expanded="true" />
+                <element signature="e#6727#6728#0" expanded="true" />
+                <element signature="e#6765#6766#0" expanded="true" />
+                <element signature="e#10485#10780#0" expanded="true" />
+                <element signature="e#10779#10780#0" expanded="true" />
+                <element signature="e#10820#11116#0" expanded="true" />
+                <element signature="e#11115#11116#0" expanded="true" />
+                <element signature="e#11156#11455#0" expanded="true" />
+                <element signature="e#11454#11455#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clConfiguracoesController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clConfiguracoesController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="59" selection-start-line="59" selection-end-line="59" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clCardapioOnline.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/SQLite/clCardapioOnline.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
             </state>
           </provider>
         </entry>
@@ -118,8 +94,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -134,6 +110,14 @@
       <find>load</find>
       <find>override</find>
       <find>overr</find>
+      <find>.insereDadosConfiguracoes</find>
+      <find>insereDadosConfiguracoes</find>
+      <find>lerImagemArmazenamentoInterno</find>
+      <find>putString(&quot;Key_Empresa&quot;</find>
+      <find>!</find>
+      <find>Picasso</find>
+      <find>succes</find>
+      <find>B</find>
     </findStrings>
     <replaceStrings>
       <replace>= &quot;&quot;;</replace>
@@ -2422,14 +2406,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/propertyLinearLayout.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/Usuarios.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_textview.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentCadastro.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentEditarPerfil.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentConectar.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clpropertyLinearLayout.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clLinearLayout.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_view_menus.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_textview_nome_empresa.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_textview_resumo_empresa.xml" />
@@ -2439,45 +2415,53 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_empresas.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_cardapio.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clEmpresa.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/PrincipalActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentCardapio.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clUsuarios.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/SQLLite/clCardapioOnline.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clGravaDadosFirebaseSQLIte.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clCardapio_Itens.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/CardapioAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clCardapioItensController.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clGravaDadosFirebaseSQLite.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_splash_screen.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clUsuariosController.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clUtil.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clEmpresaController.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_Configuracoes.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_menu_dados_pessoais.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_menu_principal.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_DadosPessoais.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_Principal.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_signal_wifi_2_bar_black_24dp.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_storage_black_24dp.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_perm_identity_black_24dp.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_menu_config_app.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MenuActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_menu_configapp_rede.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_ConfigApp_Rede.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_menu_configapp.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/SQLite/clCardapioOnline.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clConfiguracoes.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clConfiguracoesController.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter_SQLite.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clEmpresaController.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clUsuariosController.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MenuActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clCardapioItensController.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/CardapioAdapter_SQLite.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_ConfigApp.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_Principal.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/PrincipalActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentCardapio.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentEditarPerfil.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/alert_personalizado_3Botoes.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Helper/Preferencias_Usuario.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Helper/Preferencias.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/alert_personalizado_3botoes.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-6" />
+    <option name="x" value="-7" />
     <option name="y" value="2" />
     <option name="width" value="1931" />
     <option name="height" value="1045" />
@@ -2513,28 +2497,14 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="cardapioonline" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="Activity" type="462c0819:PsiDirectoryNode" />
+              <item name="Classes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CardapioOnline" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="cardapioonline" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="Controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CardapioOnline" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="cardapioonline" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="Fragments" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CardapioOnline" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="cardapioonline" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="SQLite" type="462c0819:PsiDirectoryNode" />
+              <item name="Helper" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CardapioOnline" type="1abcf292:AndroidViewProjectNode" />
@@ -2552,8 +2522,8 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2567,9 +2537,12 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="lucas.cardapioonline.Helper" />
+      <recent name="lucas.cardapioonline.Adapter" />
       <recent name="lucas.cardapioonline.Controller" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\ProjetosGitHub\CardapioOnline\app\src\main\res\layout" />
       <recent name="E:\ProjetosGitHub\CardapioOnline\app\src\main\res\mipmap-hdpi" />
     </key>
   </component>
@@ -2788,11 +2761,18 @@
       <option name="project" value="LOCAL" />
       <updated>1539740954863</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Insersão dos dados no SQLite, alteração da tela de login, validação de conexão com internet.">
+      <created>1540062475543</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1540062475543</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="2" width="1931" height="1045" extended-state="0" />
+    <frame x="-7" y="2" width="1931" height="1045" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
@@ -2803,30 +2783,63 @@
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50322235" side_tool="true" weight="0.3298611" />
       <window_info anchor="right" id="Preview" order="6" weight="0.3290253" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49677765" weight="0.32902467" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32902467" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49677765" weight="0.32902467" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Logcat" order="8" weight="0.3266745" />
       <window_info id="Captures" order="5" weight="0.25" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="4" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24986537" />
-      <window_info anchor="right" id="Assistant" order="0" weight="0.32956383" />
-      <window_info anchor="bottom" id="Build" order="10" sideWeight="0.49785176" weight="0.32549942" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.24986537" />
+      <window_info anchor="bottom" id="Build" order="10" sideWeight="0.49785176" weight="0.32470587" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32902467" />
       <window_info anchor="right" id="Gradle" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="4" side_tool="true" weight="0.32956383" />
       <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39058822" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39130434" />
+      <window_info anchor="right" id="Assistant" order="0" weight="0.32956383" />
       <window_info anchor="right" id="Commander" order="1" weight="0.4" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3298611" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="bottom" id="Build" order="10" sideWeight="0.49785176" weight="0.32470587" />
+      <window_info id="Designer" order="4" />
+      <window_info id="Build Variants" order="2" side_tool="true" />
+      <window_info id="Image Layers" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32902467" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Android Profiler" order="7" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Captures" order="5" weight="0.25" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Commander" order="1" weight="0.4" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50322235" side_tool="true" weight="0.3298611" />
+      <window_info active="true" anchor="right" id="Preview" order="6" visible="true" weight="0.3290253" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="right" id="Device File Explorer" order="4" side_tool="true" weight="0.32956383" />
+      <window_info anchor="right" id="Assistant" order="0" weight="0.32956383" />
+      <window_info anchor="bottom" id="Logcat" order="8" weight="0.3266745" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49677765" weight="0.32902467" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="right" id="Gradle" order="7" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24986537" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32902467" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39058822" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
@@ -2858,54 +2871,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/CardapioAdapter.java</url>
-          <line>76</line>
-          <properties />
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java</url>
-          <line>139</line>
-          <properties />
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java</url>
-          <line>104</line>
-          <properties />
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java</url>
-          <line>111</line>
-          <properties />
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java</url>
-          <line>121</line>
-          <properties />
-          <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/CardapioAdapter.java</url>
-          <line>55</line>
-          <properties />
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MenuActivity.java</url>
-          <line>62</line>
-          <properties />
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentCardapio.java</url>
-          <line>58</line>
-          <properties />
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clGravaDadosFirebaseSQLite.java</url>
           <line>32</line>
           <properties />
@@ -2913,18 +2878,60 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java</url>
-          <line>111</line>
+          <line>163</line>
           <properties />
           <option name="timeStamp" value="138" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clConfiguracoesController.java</url>
-          <line>48</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java</url>
+          <line>77</line>
           <properties />
-          <option name="timeStamp" value="157" />
+          <option name="timeStamp" value="172" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clCardapioItensController.java</url>
+          <line>100</line>
+          <properties />
+          <option name="timeStamp" value="177" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentCardapio.java</url>
+          <line>68</line>
+          <properties />
+          <option name="timeStamp" value="179" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentCardapio.java</url>
+          <line>102</line>
+          <properties />
+          <option name="timeStamp" value="180" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java</url>
+          <line>278</line>
+          <properties />
+          <option name="timeStamp" value="192" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java</url>
+          <line>269</line>
+          <properties />
+          <option name="timeStamp" value="193" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java</url>
+          <line>287</line>
+          <properties />
+          <option name="timeStamp" value="194" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clUtil.java</url>
+          <line>45</line>
+          <properties />
+          <option name="timeStamp" value="196" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="159" />
+      <option name="time" value="202" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -2937,12 +2944,27 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>Boolean.valueOf(cursor.getString(cursor.getColumnIndex(&quot;configapp_redemoveis&quot;)))</expression-string>
+        <expression-string>dialog.show();</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>Boolean.valueOf(cursor.getString(cursor.getColumnIndex(&quot;configapp_redewifi&quot;)))</expression-string>
+        <expression-string>c.dadosWifi()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>c.dadosMoveis()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>cursor.getString(cursor.getColumnIndex(&quot;configapp_redewifi&quot;))</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>cursor.getString(cursor.getColumnIndex(&quot;configapp_armaz_externo&quot;))</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -2952,202 +2974,23 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>byteImagem.length</expression-string>
+        <expression-string>,</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>strings.length</expression-string>
+        <expression-string>configuracoes.armazenamentoExterno()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>strings[0]</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>strings[1]</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>strings[2]</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>FirebaseDatabase.getInstance().getReference()</expression-string>
+        <expression-string>armazenamentoExternoAcessivel()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentCardapio.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
-          <folding>
-            <element signature="e#3028#3194#0" />
-            <element signature="e#3193#3194#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/DAO/ConfiguracaoFirebase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="75" column="38" selection-start-line="75" selection-start-column="38" selection-end-line="75" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clEmpresa.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="6" selection-start-line="6" selection-end-line="16" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-16.0.1.aar/883546facc391d432f59a987f8919051/jars/classes.jar!/com/google/android/gms/internal/firebase_database/zzfc.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="40" column="38" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clUsuarios.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="21" column="29" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clCardapio_Itens.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="27" column="36" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/CardapioAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="59" column="49" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-27/android.jar!/android/os/AsyncTask.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="62" column="53" selection-start-line="62" selection-start-column="53" selection-end-line="62" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="37" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash_screen.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.8.0/ffc2684f1c6436d3942d82d29a5344942792594/glide-4.8.0-sources.jar!/com/bumptech/glide/Glide.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.7.1/835685a4ca352a1c6d5f724088432ae950e04bac/glide-4.7.1-sources.jar!/com/bumptech/glide/Glide.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5979">
-          <caret line="820" column="8" selection-start-line="820" selection-start-column="3" selection-end-line="820" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/loading.gif">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://D:/Documentos/AndroidStudio/DeviceExplorer/asus-asus_x008db-H1AXB601T689PV7/data/data/lucas.cardapioonline/files/-LNIt3Xv5j-bLDcr6p4E" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/PrincipalActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="92" column="29" selection-start-line="92" selection-start-column="29" selection-end-line="92" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="10" column="33" lean-forward="true" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Documentos/AndroidStudio/DeviceExplorer/asus-asus_x008db-H1AXB601T689PV7/data/data/lucas.cardapioonline/files/-LNIt3Xv5j-bLDcr6p4E.png" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Documentos/AndroidStudio/DeviceExplorer/asus-asus_x008db-H1AXB601T689PV7/data/data/lucas.cardapioonline/files/-LNIt3Xv5j-bLDcr6p4E.bmp" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_keyboard_arrow_right_black_24dp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_edit_black_24dp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_signal_wifi_2_bar_black_24dp.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -3166,16 +3009,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="6" column="48" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3309">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3206,46 +3039,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Helper/Preferencias.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_ConfigApp_Rede.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="741">
-          <caret line="73" column="1" selection-start-line="19" selection-end-line="73" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1087#1223#0" expanded="true" />
-            <element signature="e#1222#1223#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_menu_config_app.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="57" column="26" lean-forward="true" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_Principal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="97" column="85" selection-start-line="97" selection-start-column="63" selection-end-line="97" selection-end-column="85" />
-          <folding>
-            <element signature="e#4082#4691#0" expanded="true" />
-            <element signature="e#4690#4691#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_ConfigApp_Rede.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_menu_config_app.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_menu_principal.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3256,65 +3051,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_menu_configapp.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="125" lean-forward="true" selection-start-line="125" selection-end-line="125" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MenuActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="80" selection-start-line="80" selection-end-line="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="144" selection-start-line="144" selection-end-line="144" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clCardapioItensController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clEmpresaController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="678">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clUsuariosController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="109" column="44" lean-forward="true" selection-start-line="109" selection-start-column="24" selection-end-line="109" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-27/android.jar!/android/os/Looper.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-          <folding>
-            <element signature="e#612#613#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3332,13 +3072,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/SQLite/clCardapioOnline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-fragment/27.1.1/94732bda44fba11302c58e459b7c1f47e7521bf9/support-fragment-27.1.1-sources.jar!/android/support/v4/app/FragmentManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
@@ -3346,29 +3079,314 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_menu_configapp.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="125" selection-start-line="125" selection-end-line="125" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Documentos/AndroidStudio/DeviceExplorer/asus-asus_x008db-H1AXB601T689PV7/data/data/lucas.cardapioonline/files/-LNIt3Xv5j-bLDcr6p4E">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2268" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clConfiguracoesController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        <state relative-caret-position="189">
+          <caret line="57" column="46" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_empresas.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1448">
+          <caret line="60" column="89" selection-start-line="60" selection-start-column="89" selection-end-line="60" selection-end-column="89" />
+          <folding>
+            <element signature="e#5418#5419#0" expanded="true" />
+            <element signature="e#5461#5462#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/CardapioAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="76" selection-start-line="76" selection-end-line="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="110" column="91" selection-start-line="110" selection-start-column="91" selection-end-line="110" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clUsuariosController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="121" selection-start-line="121" selection-end-line="121" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clCardapio_Itens.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+          <folding>
+            <element signature="e#344#345#0" expanded="true" />
+            <element signature="e#381#382#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
+            <element signature="e#675#676#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/SQLite/clCardapioOnline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="71" column="49" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clCardapioItensController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="121" selection-start-line="121" selection-end-line="121" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/CardapioAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1401">
+          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+          <folding>
+            <element signature="e#3557#3558#0" expanded="true" />
+            <element signature="e#3600#3601#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clEmpresa.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
+          <folding>
+            <element signature="e#1513#1514#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/MenuActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Controller/clEmpresaController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2712">
+          <caret line="169" selection-start-line="169" selection-end-line="169" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Documentos/AndroidStudio/DeviceExplorer/asus-asus_x008db-H1AXB601T689PV7/data/data/lucas.cardapioonline/shared_prefs/app.preferencias_cardapio.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Adapter/EmpresasAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="57" column="31" lean-forward="true" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.7.1/835685a4ca352a1c6d5f724088432ae950e04bac/glide-4.7.1-sources.jar!/com/bumptech/glide/RequestManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-132">
+          <caret line="428" column="36" selection-start-line="428" selection-start-column="36" selection-end-line="428" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_Principal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-270">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentCardapio.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="10" column="35" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="31" column="64" selection-start-line="31" selection-start-column="64" selection-end-line="31" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentEditarPerfil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-162">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.beardedhen/androidbootstrap/2.3.2/c1f461a0722ca15d4090286735f68afbe3036475/androidbootstrap-2.3.2-sources.jar!/com/beardedhen/androidbootstrap/api/defaults/ButtonMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.beardedhen/androidbootstrap/2.3.2/c1f461a0722ca15d4090286735f68afbe3036475/androidbootstrap-2.3.2-sources.jar!/com/beardedhen/androidbootstrap/BootstrapButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2079">
+          <caret line="13" column="59" lean-forward="true" selection-start-line="13" selection-start-column="59" selection-end-line="13" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.beardedhen/androidbootstrap/2.3.2/c1f461a0722ca15d4090286735f68afbe3036475/androidbootstrap-2.3.2-sources.jar!/com/beardedhen/androidbootstrap/api/attributes/BootstrapBrand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-27/android.jar!/android/view/View.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="2085" column="19" selection-start-line="2085" selection-start-column="19" selection-end-line="2085" selection-end-column="19" />
+          <folding>
+            <element signature="e#60351#60352#0" expanded="true" />
+            <element signature="e#60402#60403#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.beardedhen/androidbootstrap/2.3.2/c1f461a0722ca15d4090286735f68afbe3036475/androidbootstrap-2.3.2-sources.jar!/com/beardedhen/androidbootstrap/AwesomeTextView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4935">
+          <caret line="242" column="68" selection-start-line="242" selection-start-column="68" selection-end-line="242" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Helper/Preferencias_Usuario.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-27/android.jar!/android/app/Activity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="1116" selection-start-line="1116" selection-end-line="1116" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/PrincipalActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="112" selection-start-line="112" selection-end-line="112" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Fragments/FragmentMenu_ConfigApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="116" column="9" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
+        <state relative-caret-position="273">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="28" column="63" lean-forward="true" selection-start-line="28" selection-start-column="63" selection-end-line="28" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1726#1932#0" expanded="true" />
-            <element signature="e#1931#1932#0" expanded="true" />
-            <element signature="e#2010#2237#0" expanded="true" />
-            <element signature="e#2236#2237#0" expanded="true" />
-            <element signature="e#2296#2523#0" expanded="true" />
-            <element signature="e#2522#2523#0" expanded="true" />
-            <element signature="e#1605#1763#0" expanded="true" />
-            <element signature="e#1762#1763#0" expanded="true" />
-            <element signature="e#1657#1823#0" expanded="true" />
-            <element signature="e#1822#1823#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Classes/clConfiguracoes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+          <folding>
+            <element signature="e#1325#1326#0" expanded="true" />
+            <element signature="e#1359#1360#0" expanded="true" />
+            <element signature="e#1400#1401#0" expanded="true" />
+            <element signature="e#1432#1433#0" expanded="true" />
+            <element signature="e#1484#1485#0" expanded="true" />
+            <element signature="e#1527#1528#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Helper/Preferencias.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="26" column="49" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/alert_personalizado_3botoes.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1539">
+          <caret line="57" column="40" lean-forward="true" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/lucas/cardapioonline/Activity/SplashActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="86" column="61" selection-start-line="86" selection-start-column="61" selection-end-line="86" selection-end-column="61" />
+          <folding>
+            <element signature="e#6727#6728#0" expanded="true" />
+            <element signature="e#6765#6766#0" expanded="true" />
+            <element signature="e#10485#10780#0" expanded="true" />
+            <element signature="e#10779#10780#0" expanded="true" />
+            <element signature="e#10820#11116#0" expanded="true" />
+            <element signature="e#11115#11116#0" expanded="true" />
+            <element signature="e#11156#11455#0" expanded="true" />
+            <element signature="e#11454#11455#0" expanded="true" />
           </folding>
         </state>
       </provider>
