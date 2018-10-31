@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class clCardapioOnline extends SQLiteOpenHelper {
 
     private static final String NOME_BANCO = "cardapioonline.db";
-    private static final int VERSAO = 1;
+    private static final int VERSAO = 2;
 
 
     public clCardapioOnline(Context context) {
@@ -20,6 +20,7 @@ public class clCardapioOnline extends SQLiteOpenHelper {
         criaTabelaEmpresa(sqLiteDatabase);
         criaTabelaCardapio_Itens(sqLiteDatabase);
         criaTabelaConfiguracoes(sqLiteDatabase);
+        criaTabelaInfoAtualizacao(sqLiteDatabase);
     }
 
     @Override
@@ -83,6 +84,14 @@ public class clCardapioOnline extends SQLiteOpenHelper {
         db.execSQL("create index cardapio_itensB on cardapio_itens ( key_produto asc, key_empresa asc )");
     }
 
+    private void criaTabelaInfoAtualizacao(SQLiteDatabase db) {
+        String sql = "create table ultimaatualizacao ( _id integer not null primary key autoincrement, " +
+                "data_ultima_atualizacao text not null, " +
+                "hora_ultima_atualizacao text not null )";
+
+        db.execSQL(sql);
+    }
+
     private void criaTabelaConfiguracoes(SQLiteDatabase db) {
         String sql = "create table configuracoes (_id integer not null primary key autoincrement," +
                 "configapp_redemoveis text," +
@@ -100,5 +109,6 @@ public class clCardapioOnline extends SQLiteOpenHelper {
         db.execSQL("drop table if exists empresa");
         db.execSQL("drop table if exists cardapio_itens");
         db.execSQL("drop table if exists configuracoes");
+        db.execSQL("drop table if exists infoatualizacao");
     }
 }

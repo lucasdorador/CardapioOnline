@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import lucas.cardapioonline.Activity.MainActivity;
 import lucas.cardapioonline.Classes.clConstantes;
 import lucas.cardapioonline.Classes.clUtil;
+import lucas.cardapioonline.Helper.Preferencias_Usuario;
 import lucas.cardapioonline.R;
 
 public class FragmentMenu_Principal extends Fragment {
@@ -130,5 +131,8 @@ public class FragmentMenu_Principal extends Fragment {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();
+
+        Preferencias_Usuario preferencias_usuario = new Preferencias_Usuario(getActivity());
+        preferencias_usuario.limparPreferencias();
     }
 }

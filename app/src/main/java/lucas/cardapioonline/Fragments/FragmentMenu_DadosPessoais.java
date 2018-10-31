@@ -21,16 +21,21 @@ import com.google.firebase.database.ValueEventListener;
 
 import lucas.cardapioonline.Activity.MainActivity;
 import lucas.cardapioonline.Classes.clUsuarios;
+import lucas.cardapioonline.Classes.clUtil;
+import lucas.cardapioonline.Controller.clUsuariosController;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
+import lucas.cardapioonline.Helper.Preferencias;
+import lucas.cardapioonline.Helper.Preferencias_Usuario;
 import lucas.cardapioonline.R;
 
 public class FragmentMenu_DadosPessoais extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-    private LinearLayout linearLayout_MenuEditarPerfil, linearLayout_RetornarMenuConfiguracoes;
+    private LinearLayout linearLayout_MenuEditarPerfil, linearLayout_RetornarMenuConfiguracoes,
+            linearLayout_MenuExcluirPreferencias;
 
     private FirebaseAuth autenticacao;
-    private DatabaseReference reference;
+    private clUtil util;
 
     public FragmentMenu_DadosPessoais() {
         // Required empty public constructor
@@ -43,8 +48,9 @@ public class FragmentMenu_DadosPessoais extends Fragment {
 
         linearLayout_MenuEditarPerfil = view.findViewById(R.id.linearLayout_MenuEditarPerfil);
         linearLayout_RetornarMenuConfiguracoes = view.findViewById(R.id.linearLayout_RetornarMenuConfiguracoes);
+        linearLayout_MenuExcluirPreferencias = view.findViewById(R.id.linearLayout_MenuExcluirPreferencias);
         autenticacao = FirebaseAuth.getInstance();
-        reference = ConfiguracaoFirebase.getReferenciaFirebase();
+        util = new clUtil(getActivity());
 
         linearLayout_RetornarMenuConfiguracoes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +63,19 @@ public class FragmentMenu_DadosPessoais extends Fragment {
             @Override
             public void onClick(View view) {
                 editarPerfilUsuario();
+            }
+        });
+
+        linearLayout_MenuExcluirPreferencias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Preferencias preferencias = new Preferencias(getActivity(), "app.InternetDadosMoveis");
+                preferencias.limparPreferencias();
+
+                Preferencias_Usuario preferencias_usuario = new Preferencias_Usuario(getActivity());
+                preferencias_usuario.limparPreferencias();
+
+                util.MensagemRapida("Dados excluídos com sucesso!");
             }
         });
 
@@ -82,46 +101,32 @@ public class FragmentMenu_DadosPessoais extends Fragment {
 
     private void editarPerfilUsuario() {
         String emailUsuarioLogado = autenticacao.getCurrentUser().getEmail();
-        reference = ConfiguracaoFirebase.getReferenciaFirebase();
+        clUsuariosController usuariosController = new clUsuariosController(getContext());
+        clUsuarios usuarios = usuariosController.retornaUsuarioCompleto(emailUsuarioLogado);
 
-        reference.child("usuarios").orderByChild("email").equalTo(emailUsuarioLogado).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    clUsuarios usuarios = postSnapshot.getValue(clUsuarios.class);
+        final Bundle bundle = new Bundle();
 
-                    final Bundle bundle = new Bundle();
+        bundle.putString("origem", "editarUsuario");
+        bundle.putString("email", usuarios.getEmail());
+        bundle.putString("nome", usuarios.getNome());
+        bundle.putString("idade", usuarios.getIdade());
+        bundle.putString("keyusuario", usuarios.getKeyUsuario());
+        bundle.putString("tipoUsuario", usuarios.getTipoUsuario());
+        bundle.putString("genero", usuarios.getGenero());
+        bundle.putString("endereco", usuarios.getEndereco());
+        bundle.putString("numero", usuarios.getNumero());
+        bundle.putString("bairro", usuarios.getBairro());
+        bundle.putString("celular", usuarios.getCelular());
+        bundle.putString("uriFotoPerfil", usuarios.getUriFotoPerfil());
 
-                    bundle.putString("origem", "editarUsuario");
-                    bundle.putString("email", usuarios.getEmail());
-                    bundle.putString("nome", usuarios.getNome());
-                    bundle.putString("idade", usuarios.getIdade());
-                    bundle.putString("keyusuario", usuarios.getKeyUsuario());
-                    bundle.putString("tipoUsuario", usuarios.getTipoUsuario());
-                    bundle.putString("genero", usuarios.getGenero());
-                    bundle.putString("endereco", usuarios.getEndereco());
-                    bundle.putString("numero", usuarios.getNumero());
-                    bundle.putString("bairro", usuarios.getBairro());
-                    bundle.putString("celular", usuarios.getCelular());
-                    bundle.putString("uriFotoPerfil", usuarios.getUriFotoPerfil());
+        FragmentEditarPerfil fragment_EditarPerfil = new FragmentEditarPerfil();
+        fragment_EditarPerfil.setArguments(bundle);
 
-                    FragmentEditarPerfil fragment_EditarPerfil = new FragmentEditarPerfil();
-                    fragment_EditarPerfil.setArguments(bundle);
-
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.setCustomAnimations(R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
-                    transaction.replace(R.id.nav_contentframe, fragment_EditarPerfil, "FragEditar");
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
+        transaction.replace(R.id.nav_contentframe, fragment_EditarPerfil, "FragEditar");
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

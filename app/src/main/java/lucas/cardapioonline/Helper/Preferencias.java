@@ -26,4 +26,9 @@ public class Preferencias {
     public String getSecaoPreferencias(String nomeSecao){
         return preferences.getString(nomeSecao, "");
     }
+
+    public void limparPreferencias(){
+        editor.clear();
+        editor.commit();
+    }
 }

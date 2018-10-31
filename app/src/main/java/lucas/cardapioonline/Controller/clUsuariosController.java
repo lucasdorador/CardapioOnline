@@ -109,13 +109,45 @@ public class clUsuariosController {
         cursor = db.query("usuarios", campos, where, null, null, null, null, null);
 
         if (cursor != null) {
-            cursor.moveToFirst();
-            resultado = cursor.getString(0);
+            try {
+                cursor.moveToFirst();
+                resultado = cursor.getString(0);
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
         }
 
         db.close();
 
         return resultado;
+    }
+
+    public clUsuarios retornaUsuarioCompleto(String email) {
+        clUsuarios usuarios = new clUsuarios();
+        SQLiteDatabase db = banco.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM usuarios WHERE email = ?", new String[]{email});
+
+        if (cursor.moveToFirst()) {
+            do {
+                usuarios.setBairro(cursor.getString(cursor.getColumnIndex("bairro")));
+                usuarios.setCelular(cursor.getString(cursor.getColumnIndex("celular")));
+                usuarios.setCep(cursor.getString(cursor.getColumnIndex("cep")));
+                usuarios.setCidade(cursor.getString(cursor.getColumnIndex("cidade")));
+                usuarios.setEmail(cursor.getString(cursor.getColumnIndex("email")));
+                usuarios.setEndereco(cursor.getString(cursor.getColumnIndex("endereco")));
+                usuarios.setGenero(cursor.getString(cursor.getColumnIndex("genero")));
+                usuarios.setIdade(cursor.getString(cursor.getColumnIndex("idade")));
+                usuarios.setKeyUsuario(cursor.getString(cursor.getColumnIndex("keyUsuario")));
+                usuarios.setNome(cursor.getString(cursor.getColumnIndex("nome")));
+                usuarios.setNumero(cursor.getString(cursor.getColumnIndex("numero")));
+                usuarios.setUriFotoPerfil(cursor.getString(cursor.getColumnIndex("uriFotoPerfil")));
+                usuarios.setTipoUsuario(cursor.getString(cursor.getColumnIndex("tipoUsuario")));
+            }
+            while (cursor.moveToNext());
+        }
+
+        return usuarios;
+
     }
 
     public String[] retornaCamposUsuarioByEmail(String[] campo, String email) {
@@ -128,7 +160,7 @@ public class clUsuariosController {
 
         if (cursor != null) {
             cursor.moveToFirst();
-            for (int i = 0; i <= campo.length-1; i++) {
+            for (int i = 0; i <= campo.length - 1; i++) {
                 resultado[i] = cursor.getString(cursor.getColumnIndex(campo[i]));
             }
         }

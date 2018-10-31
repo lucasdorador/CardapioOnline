@@ -33,4 +33,9 @@ public class Preferencias_Usuario {
     public String getSENHA_USUARIO_LOGADO(){
         return preferences.getString(SENHA_USUARIO_LOGADO, null);
     }
+
+    public void limparPreferencias(){
+        editor.clear();
+        editor.commit();
+    }
 }

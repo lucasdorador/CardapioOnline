@@ -124,6 +124,9 @@ public class FragmentConectar extends Fragment {
             usuario.setSenha(edtConectarSenha.getText().toString());
 
             validarLogin();
+
+        } else {
+            dialog.dismiss();
         }
     }
 
@@ -139,6 +142,7 @@ public class FragmentConectar extends Fragment {
                     dialog.dismiss();
                     util.MensagemRapida("Login efetuado com sucesso!");
                 } else {
+                    dialog.dismiss();
                     util.MensagemRapida("Usuário ou senha inválidos! Tente novamente");
                 }
             }

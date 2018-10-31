@@ -122,10 +122,15 @@ public class clEmpresaController {
 
     public boolean existeDadosCadastrados(String keyEmpresa) {
         boolean resultado = true;
+        long numOfEntries;
 
         db = banco.getReadableDatabase();
-        String where = "key_empresa = '" + keyEmpresa + "'";
-        long numOfEntries = DatabaseUtils.queryNumEntries(db, "empresa", where);
+        if (!keyEmpresa.equals("")) {
+            String where = "key_empresa = '" + keyEmpresa + "'";
+            numOfEntries = DatabaseUtils.queryNumEntries(db, "empresa", where);
+        } else {
+            numOfEntries = DatabaseUtils.queryNumEntries(db, "empresa", null);
+        }
 
         if (numOfEntries == 0l) {
             resultado = false;

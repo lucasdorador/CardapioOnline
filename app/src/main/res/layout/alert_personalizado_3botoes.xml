@@ -14,7 +14,7 @@
         android:layout_margin="2dp"
         android:gravity="center"
         android:text="Atualização por Dados Móveis poderá ser cobrado de sua franquia de internet, deseja continuar?"
-        android:textSize="20dp" />
+        android:textSize="15dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,10 +29,10 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:text="SIM"
+            android:drawableLeft="@drawable/ic_check_black_30dp"
             app:bootstrapBrand="danger"
             app:bootstrapSize="lg"
             app:buttonMode="regular"
-            app:roundedCorners="true"
             app:showOutline="false" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
@@ -42,10 +42,10 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:text="NÃO"
+            android:drawableLeft="@drawable/ic_block_black_30dp"
             app:bootstrapBrand="success"
             app:bootstrapSize="lg"
             app:buttonMode="regular"
-            app:roundedCorners="true"
             app:showOutline="false" />
 
     </LinearLayout>
@@ -61,6 +61,5 @@
         app:bootstrapBrand="info"
         app:bootstrapSize="lg"
         app:buttonMode="regular"
-        app:roundedCorners="true"
         app:showOutline="false" />
 </LinearLayout>

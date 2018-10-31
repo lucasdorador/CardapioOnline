@@ -26,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 import lucas.cardapioonline.Classes.clMascara;
 import lucas.cardapioonline.Classes.clUsuarios;
 import lucas.cardapioonline.Classes.clUtil;
+import lucas.cardapioonline.Controller.clUsuariosController;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.R;
 
@@ -139,6 +140,8 @@ public class FragmentEditarPerfil extends Fragment {
             usuarios.setTipoUsuario("Comum");
 
             atualizarDados(usuarios, alteraSenha);
+            clUsuariosController usuariosController = new clUsuariosController(getContext());
+            usuariosController.alteraDadosUsuarios(usuarios);
         }
     }
 

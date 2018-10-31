@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
@@ -57,13 +58,12 @@ public class PrincipalActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        preencheInfoUsuarioLogado_SQLite();
-
-        carregarTodasEmpresas();
+        abreActivityAtualizacao();
 
         imgPrincipalFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                preencheInfoUsuarioLogado_SQLite();
                 abreActivityMenus();
             }
         });
@@ -79,6 +79,19 @@ public class PrincipalActivity extends AppCompatActivity {
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
         ActivityCompat.startActivity(PrincipalActivity.this, intent, optionsCompat.toBundle());
         finish();
+    }
+
+    private void abreActivityAtualizacao() {
+        Intent intent = new Intent(PrincipalActivity.this, AtualizaDadosActivity.class);
+        startActivityForResult(intent, 123);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if ((resultCode == RESULT_OK) && (requestCode == 123)) {
+            //preencheInfoUsuarioLogado_SQLite();
+            carregarTodasEmpresas();
+        }
     }
 
     private void carregarTodasEmpresas() {

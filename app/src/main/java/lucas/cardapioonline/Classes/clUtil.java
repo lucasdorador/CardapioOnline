@@ -16,6 +16,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class clUtil {
 
@@ -50,6 +53,30 @@ public class clUtil {
         }
 
         return result;
+    }
+
+    public final String retornaDataAtual(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = new Date();
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(data);
+        Date hoje = cal.getTime();
+
+        String data_atual = dateFormat.format(hoje);
+
+        return data_atual;
+    }
+
+    public final String retornaHoraAtual(){
+        SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
+        Date data = new Date();
+        Calendar  cal = Calendar.getInstance();
+        cal.setTime(data);
+        Date data_atual = cal.getTime();
+        String hora_atual = dateFormat_hora.format(data_atual);
+
+        return hora_atual;
     }
 
     public final boolean conexaoDadosMoveis(Context context) {
