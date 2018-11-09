@@ -1,10 +1,12 @@
 package lucas.cardapioonline.Classes;
 
+import java.util.Date;
+
 public class clInfoAtualizacao {
 
     private int _id;
-    private String data_atualizacao;
-    private String hora_atualizacao;
+    private Date data_atualizacao;
+    private Date hora_atualizacao;
 
     public int get_id() {
         return _id;
@@ -14,19 +16,19 @@ public class clInfoAtualizacao {
         this._id = _id;
     }
 
-    public String getData_atualizacao() {
+    public Date getData_atualizacao() {
         return data_atualizacao;
     }
 
-    public void setData_atualizacao(String data_atualizacao) {
+    public void setData_atualizacao(Date data_atualizacao) {
         this.data_atualizacao = data_atualizacao;
     }
 
-    public String getHora_atualizacao() {
+    public Date getHora_atualizacao() {
         return hora_atualizacao;
     }
 
-    public void setHora_atualizacao(String hora_atualizacao) {
+    public void setHora_atualizacao(Date hora_atualizacao) {
         this.hora_atualizacao = hora_atualizacao;
     }
 }

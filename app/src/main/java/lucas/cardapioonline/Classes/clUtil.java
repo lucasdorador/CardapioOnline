@@ -44,6 +44,11 @@ public class clUtil {
         return false;
     }
 
+    public SimpleDateFormat formataData(String formato){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
+        return dateFormat;
+    }
+
     public final boolean conexaoWifi(Context context) {
         boolean result = false;
         ConnectivityManager conmag = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -55,27 +60,21 @@ public class clUtil {
         return result;
     }
 
-    public final String retornaDataAtual(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public final Date retornaDataAtual(){
         Date data = new Date();
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(data);
         Date hoje = cal.getTime();
 
-        String data_atual = dateFormat.format(hoje);
-
-        return data_atual;
+        return hoje;
     }
 
-    public final String retornaHoraAtual(){
-        SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
+    public final Date retornaHoraAtual(){
         Date data = new Date();
         Calendar  cal = Calendar.getInstance();
         cal.setTime(data);
-        Date data_atual = cal.getTime();
-        String hora_atual = dateFormat_hora.format(data_atual);
-
+        Date hora_atual = cal.getTime();
         return hora_atual;
     }
 
@@ -158,5 +157,9 @@ public class clUtil {
         RequestOptions options = new RequestOptions().fitCenter().override(width, height);
         Glide.with(activity).load(uri).apply(options).into(imageView);
 
+    }
+
+    public Integer quantidade_dias_atualizacao(){
+        return 2;
     }
 }

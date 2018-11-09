@@ -15,15 +15,19 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.Date;
 import java.util.List;
 
 import lucas.cardapioonline.Adapter.EmpresasAdapter;
 import lucas.cardapioonline.Classes.clConstantes;
 import lucas.cardapioonline.Classes.clEmpresa;
+import lucas.cardapioonline.Classes.clInfoAtualizacao;
 import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.Controller.clEmpresaController;
+import lucas.cardapioonline.Controller.clInfoAtualizacaoController;
 import lucas.cardapioonline.Controller.clUsuariosController;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
+import lucas.cardapioonline.Helper.Preferencias;
 import lucas.cardapioonline.R;
 
 public class PrincipalActivity extends AppCompatActivity {
@@ -40,6 +44,9 @@ public class PrincipalActivity extends AppCompatActivity {
     private List<clEmpresa> empresas;
     private clEmpresaController empresaController;
     private clUsuariosController usuarioController;
+    private clInfoAtualizacaoController infoAtualizacaoController;
+    private clInfoAtualizacao infoAtualizacao;
+    private Preferencias preferencias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +59,30 @@ public class PrincipalActivity extends AppCompatActivity {
         util = new clUtil(PrincipalActivity.this);
         empresaController = new clEmpresaController(this);
         usuarioController = new clUsuariosController(this);
+        infoAtualizacaoController = new clInfoAtualizacaoController(this);
+        preferencias = new Preferencias(this, "UltimaAtualizacao");
 
         recycleViewEmpresas = findViewById(R.id.recycleViewEmpresas);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        abreActivityAtualizacao();
+        String dataPrefer = preferencias.getSecaoPreferencias("DataAcesso");
+
+        if ((!dataPrefer.equals("")) && (dataPrefer != null)) {
+            String dataatual = util.formataData("dd/MM/yyyy").format(util.retornaDataAtual());
+
+            if (!dataPrefer.equals(dataatual)) {
+                preferencias.limparPreferencias();
+                abreActivityAtualizacao();
+                preferencias.salvarPreferencias(util.formataData("dd/MM/yyyy").format(util.retornaDataAtual()), "DataAcesso");
+            } else {
+                carregarTodasEmpresas();
+            }
+        } else {
+            abreActivityAtualizacao();
+            preferencias.salvarPreferencias(util.formataData("dd/MM/yyyy").format(util.retornaDataAtual()), "DataAcesso");
+        }
 
         imgPrincipalFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,8 +106,17 @@ public class PrincipalActivity extends AppCompatActivity {
     }
 
     private void abreActivityAtualizacao() {
-        Intent intent = new Intent(PrincipalActivity.this, AtualizaDadosActivity.class);
-        startActivityForResult(intent, 123);
+        infoAtualizacao = infoAtualizacaoController.retornaInfoAtualizacaoCompleto();
+        Date dataAtual = util.retornaDataAtual();
+        Date dataUltimaAt = infoAtualizacao.getData_atualizacao();
+        int dias = (int) ((dataAtual.getTime() - dataUltimaAt.getTime()) / 86400000L);
+
+        if (dias > util.quantidade_dias_atualizacao()) {
+            Intent intent = new Intent(PrincipalActivity.this, AtualizaDadosActivity.class);
+            startActivityForResult(intent, 123);
+        } else {
+            carregarTodasEmpresas();
+        }
     }
 
     @Override

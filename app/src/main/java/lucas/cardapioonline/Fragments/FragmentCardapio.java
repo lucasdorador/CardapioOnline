@@ -1,11 +1,13 @@
 package lucas.cardapioonline.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.List;
 
+import lucas.cardapioonline.Activity.AtualizaDadosActivity;
 import lucas.cardapioonline.Adapter.CardapioAdapter;
 import lucas.cardapioonline.Classes.clCardapio_Itens;
 import lucas.cardapioonline.Classes.clEmpresa;
@@ -40,6 +43,7 @@ public class FragmentCardapio extends Fragment {
     protected ImageView imgCardapioLogo;
     private clCardapioItensController itensController;
     private clUtil util;
+    private SwipeRefreshLayout swipeCardapio;
 
     public FragmentCardapio() {
         // Required empty public constructor
@@ -60,6 +64,7 @@ public class FragmentCardapio extends Fragment {
         txtCardapioTelefone = view.findViewById(R.id.txtCardapioTelefone);
         txtCardapioHorarioFuncionamento = view.findViewById(R.id.txtCardapioHorarioFuncionamento);
         imgCardapioLogo = view.findViewById(R.id.imgCardapioLogo);
+        swipeCardapio = view.findViewById(R.id.swipeCardapio);
         util = new clUtil(getActivity());
 
         linearLayout_RetornarMenuPrincipal = view.findViewById(R.id.linearLayout_RetornarMenuPrincipal);
@@ -76,7 +81,32 @@ public class FragmentCardapio extends Fragment {
             }
         });
 
+        swipeCardapio.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                abreActivityAtualizacao();
+            }
+        });
+
+        swipeCardapio.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
         return view;
+    }
+
+    private void abreActivityAtualizacao() {
+        Intent intent = new Intent(getContext(), AtualizaDadosActivity.class);
+        startActivityForResult(intent, 123);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if ((resultCode == getActivity().RESULT_OK) && (requestCode == 123)) {
+            swipeCardapio.setRefreshing(false);
+        }
     }
 
     private void carregaDadosEmpresa(clEmpresa empresa) {
@@ -87,7 +117,7 @@ public class FragmentCardapio extends Fragment {
 
         try {
             byte[] byteImagem = util.lerImagemArmazenamentoInterno(getActivity(), empresa.getKey_empresa());
-            Bitmap bmp = BitmapFactory.decodeByteArray(byteImagem,0,byteImagem.length);
+            Bitmap bmp = BitmapFactory.decodeByteArray(byteImagem, 0, byteImagem.length);
             imgCardapioLogo.setImageBitmap(bmp);
         } catch (IOException e) {
             e.printStackTrace();

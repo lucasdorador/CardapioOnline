@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private BootstrapButton btnConectar, btnCadastrar;
     private FirebaseAuth autenticacao;
-    private DatabaseReference reference, referenceItens;
+    private DatabaseReference reference;
     private AlertDialog dialog;
     private int PERMISSAO_REQUEST = 128;
     private clUsuariosController usuariosController;

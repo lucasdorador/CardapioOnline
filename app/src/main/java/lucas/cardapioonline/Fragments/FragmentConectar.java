@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,7 @@ import dmax.dialog.SpotsDialog;
 import lucas.cardapioonline.Activity.PrincipalActivity;
 import lucas.cardapioonline.Classes.clUsuarios;
 import lucas.cardapioonline.Classes.clUtil;
+import lucas.cardapioonline.Controller.clUsuariosController;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
 import lucas.cardapioonline.Helper.Preferencias_Usuario;
 import lucas.cardapioonline.R;
@@ -42,6 +45,7 @@ public class FragmentConectar extends Fragment {
     private clUsuarios usuario;
     private AlertDialog dialog;
     private clUtil util;
+    private clUsuariosController usuariosController;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,6 +73,7 @@ public class FragmentConectar extends Fragment {
         txtEsqueceuSenha = view.findViewById(R.id.txtEsqueceuSenha);
         reference = FirebaseDatabase.getInstance().getReference();
         autenticacao = FirebaseAuth.getInstance();
+        usuariosController = new clUsuariosController(getContext());
         util = new clUtil(getActivity());
 
         btnConectarFacebook.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +148,12 @@ public class FragmentConectar extends Fragment {
                     util.MensagemRapida("Login efetuado com sucesso!");
                 } else {
                     dialog.dismiss();
-                    util.MensagemRapida("Usuário ou senha inválidos! Tente novamente");
+                    Exception e = task.getException();
+                    if ((e.getMessage().contains("network error"))) {
+                        util.MensagemRapida("Verifique se está conectado a internet! Tente novamente");
+                    } else {
+                        util.MensagemRapida("Usuário ou senha inválidos! Tente novamente");
+                    }
                 }
             }
         });
@@ -151,28 +161,38 @@ public class FragmentConectar extends Fragment {
 
     private void abrirTelaPrincipal() {
         String email = autenticacao.getCurrentUser().getEmail().toString();
+        String tipoUsuario = usuariosController.retornaConsultaUsuarioByEmail("tipoUsuario", email);
 
-        reference.child("usuarios").orderByChild("email").equalTo(email.toString()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String tipoEmailUsuario = postSnapshot.child("tipoUsuario").getValue().toString();
-
-                    if (tipoEmailUsuario.equals("Administrador")) {
-
-                    } else if (tipoEmailUsuario.equals("Comum")) {
-                        Intent intent = new Intent(getActivity(), PrincipalActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
+        if (!tipoUsuario.equals("")) {
+            abreMenus(tipoUsuario);
+        } else {
+            reference.child("usuarios").orderByChild("email").equalTo(email.toString()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        String tipoEmailUsuario = postSnapshot.child("tipoUsuario").getValue().toString();
+                        abreMenus(tipoEmailUsuario);
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+    }
+
+    private void abreMenus(String tipoUsuario) {
+        if (tipoUsuario.equals("Administrador")) {
+
+        } else if (tipoUsuario.equals("Comum")) {
+            Intent intent = new Intent(getActivity(), PrincipalActivity.class);
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(getActivity().getApplicationContext(), R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
+            ActivityCompat.startActivity(getActivity(), intent, optionsCompat.toBundle());
+            dialog.dismiss();
+            getActivity().finish();
+        }
     }
 
     @Override
