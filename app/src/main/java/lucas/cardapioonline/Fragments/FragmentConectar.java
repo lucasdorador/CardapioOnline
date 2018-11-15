@@ -2,6 +2,7 @@ package lucas.cardapioonline.Fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,9 +10,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
@@ -45,6 +48,7 @@ public class FragmentConectar extends Fragment {
     private clUsuarios usuario;
     private AlertDialog dialog;
     private clUtil util;
+    private AlertDialog alerta;
     private clUsuariosController usuariosController;
 
     private OnFragmentInteractionListener mListener;
@@ -76,6 +80,10 @@ public class FragmentConectar extends Fragment {
         usuariosController = new clUsuariosController(getContext());
         util = new clUtil(getActivity());
 
+        final EditText editTextEmail = new EditText(getContext());
+        editTextEmail.setHint("exemplo@exemplo.com");
+        editTextEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+
         btnConectarFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,11 +110,68 @@ public class FragmentConectar extends Fragment {
         txtEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(false);
+                builder.setTitle("Recuperar senha");
+                builder.setMessage("Informe seu e-mail");
+                builder.setView(editTextEmail);
 
+                if (!editTextEmail.getText().equals("")) {
+                    builder.setPositiveButton("Recuperar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            autenticacao = FirebaseAuth.getInstance();
+                            String emailRecuperar = editTextEmail.getText().toString();
+
+                            if (!emailRecuperar.equals("")) {
+                                autenticacao.sendPasswordResetEmail(emailRecuperar).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            util.MensagemRapida("Em instantes você receberá um e-mail");
+                                            reiniciarActivity();
+                                        } else {
+                                            util.MensagemRapida("Falha ao enviar o e-mail");
+                                            reiniciarActivity();
+                                        }
+                                    }
+                                });
+                            } else {
+                                util.MensagemRapida("Preencha o campo de e-mail!");
+                                reiniciarActivity();
+                            }
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            reiniciarActivity();
+                        }
+                    });
+
+                } else {
+                    util.MensagemRapida("Preencha o campo de e-mail!");
+                    reiniciarActivity();
+                }
+
+                alerta = builder.create();
+                alerta.show();
             }
         });
 
         return view;
+    }
+
+    private void reiniciarActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putString("ReiniciarFragmentConectar", "Ok");
+        Intent intent = getActivity().getIntent();
+        intent.putExtras(bundle);
+        getActivity().overridePendingTransition(0, 0);
+        getActivity().finish();
+        getActivity().overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 
     private void conectarEmail() {

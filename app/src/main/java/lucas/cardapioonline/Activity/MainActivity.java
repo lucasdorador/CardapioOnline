@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private int PERMISSAO_REQUEST = 128;
     private clUsuariosController usuariosController;
+    private boolean vlBReiniciaFragmentConectar = false;
 
 
     @Override
@@ -50,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.activity_menu_entrada, R.anim.activity_principal_saida);
 
         permissoes();
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            vlBReiniciaFragmentConectar = (bundle.getString("ReiniciarFragmentConectar").equals("Ok"));
+        }
 
         dialog = new SpotsDialog.Builder()
                 .setContext(MainActivity.this)
@@ -98,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
                     transaction.commit();
                 }
             });
+
+            if (vlBReiniciaFragmentConectar){
+                btnConectar.callOnClick();
+            }
         }
     }
 

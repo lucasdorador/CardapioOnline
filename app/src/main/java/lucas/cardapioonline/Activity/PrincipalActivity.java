@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -22,6 +23,7 @@ import lucas.cardapioonline.Adapter.EmpresasAdapter;
 import lucas.cardapioonline.Classes.clConstantes;
 import lucas.cardapioonline.Classes.clEmpresa;
 import lucas.cardapioonline.Classes.clInfoAtualizacao;
+import lucas.cardapioonline.Classes.clPersistenciaDados_Firebase_SQLIte;
 import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.Controller.clEmpresaController;
 import lucas.cardapioonline.Controller.clInfoAtualizacaoController;
@@ -47,6 +49,8 @@ public class PrincipalActivity extends AppCompatActivity {
     private clInfoAtualizacaoController infoAtualizacaoController;
     private clInfoAtualizacao infoAtualizacao;
     private Preferencias preferencias;
+    private SwipeRefreshLayout swipeEmpresas;
+    private clPersistenciaDados_Firebase_SQLIte firebase_sqLite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class PrincipalActivity extends AppCompatActivity {
         reference = ConfiguracaoFirebase.getReferenciaFirebase();
         imgPrincipalFoto = findViewById(R.id.imgPrincipalFoto);
         txtSaudacaoInicial = findViewById(R.id.txtSaudacaoInicial);
+        swipeEmpresas = findViewById(R.id.swipeEmpresas);
         util = new clUtil(PrincipalActivity.this);
         empresaController = new clEmpresaController(this);
         usuarioController = new clUsuariosController(this);
@@ -91,6 +96,25 @@ public class PrincipalActivity extends AppCompatActivity {
                 abreActivityMenus();
             }
         });
+
+        swipeEmpresas.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                atualizaTodasEmpresas();
+            }
+        });
+
+        swipeEmpresas.setColorSchemeResources(R.color.colorPrimary);
+    }
+
+    private void atualizaTodasEmpresas() {
+        firebase_sqLite = new clPersistenciaDados_Firebase_SQLIte(PrincipalActivity.this, swipeEmpresas);
+        firebase_sqLite.execute("Empresa e Itens");
+    }
+
+    public void setAtualizaDadosTela(){
+        carregarTodasEmpresas();
+        util.MensagemRapida("Dados atualizados com sucesso!");
     }
 
     private void abreActivityMenus() {
@@ -109,13 +133,19 @@ public class PrincipalActivity extends AppCompatActivity {
         infoAtualizacao = infoAtualizacaoController.retornaInfoAtualizacaoCompleto();
         Date dataAtual = util.retornaDataAtual();
         Date dataUltimaAt = infoAtualizacao.getData_atualizacao();
-        int dias = (int) ((dataAtual.getTime() - dataUltimaAt.getTime()) / 86400000L);
 
-        if (dias > util.quantidade_dias_atualizacao()) {
+        if ((dataUltimaAt == null) || (dataAtual == null)) {
             Intent intent = new Intent(PrincipalActivity.this, AtualizaDadosActivity.class);
             startActivityForResult(intent, 123);
         } else {
-            carregarTodasEmpresas();
+            int dias = (int) ((dataAtual.getTime() - dataUltimaAt.getTime()) / 86400000L);
+
+            if (dias > util.quantidade_dias_atualizacao()) {
+                Intent intent = new Intent(PrincipalActivity.this, AtualizaDadosActivity.class);
+                startActivityForResult(intent, 123);
+            } else {
+                carregarTodasEmpresas();
+            }
         }
     }
 

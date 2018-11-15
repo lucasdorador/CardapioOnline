@@ -1,9 +1,6 @@
 package lucas.cardapioonline.Activity;
 
 import android.app.Dialog;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,19 +14,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import lucas.cardapioonline.Classes.clCardapio_Itens;
 import lucas.cardapioonline.Classes.clConfiguracoes;
-import lucas.cardapioonline.Classes.clEmpresa;
+import lucas.cardapioonline.Classes.clFuncoesPersistencia;
 import lucas.cardapioonline.Classes.clGravaDadosFirebaseSQLite;
-import lucas.cardapioonline.Classes.clInfoAtualizacao;
-import lucas.cardapioonline.Classes.clUsuarios;
+import lucas.cardapioonline.Classes.clPersistenciaDados_Firebase_SQLIte;
 import lucas.cardapioonline.Classes.clUtil;
+import lucas.cardapioonline.Classes.clRegrasPersistencia;
 import lucas.cardapioonline.Helper.Preferencias;
 import lucas.cardapioonline.R;
 
@@ -37,22 +28,17 @@ public class AtualizaDadosActivity extends AppCompatActivity {
 
     private ImageView imgLoading;
     private TextView txtAguarde;
-    private DatabaseReference reference, referenceItens;
 
-    boolean passouEmpresa = false;
-    boolean passouUsuario = false;
-    boolean passouItens = false;
-
-    private clEmpresa todasEmpresas;
-    private clUsuarios todosUsuarios;
-    private clCardapio_Itens todosItens;
+    private clPersistenciaDados_Firebase_SQLIte firebase_sqLite;
     private clGravaDadosFirebaseSQLite dadosFirebaseSQLite;
     private clUtil util;
     private clConfiguracoes configuracoes;
-    private String mensagemConexao = "";
+    private String mensagemConexao = "", PerguntaConexao = "";
     private Preferencias preferencias;
     private boolean resultPreferencias = false, vlBDadosmoveis = false;
     private Dialog dialog;
+    private clRegrasPersistencia clRegrasPersistencia;
+    private clFuncoesPersistencia funcoesPersistencia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +52,11 @@ public class AtualizaDadosActivity extends AppCompatActivity {
         txtAguarde = findViewById(R.id.txtAguarde);
 
         dadosFirebaseSQLite = new clGravaDadosFirebaseSQLite(this);
-        reference = FirebaseDatabase.getInstance().getReference();
         util = new clUtil(AtualizaDadosActivity.this);
         preferencias = new Preferencias(this, "app.InternetDadosMoveis");
         dialog = new Dialog(this);
+        clRegrasPersistencia = new clRegrasPersistencia(AtualizaDadosActivity.this, "AtualizaDados");
+        funcoesPersistencia = new clFuncoesPersistencia(AtualizaDadosActivity.this);
 
         RequestOptions options = new RequestOptions()
                 .fitCenter()
@@ -84,11 +71,20 @@ public class AtualizaDadosActivity extends AppCompatActivity {
 
         if (usuarioLogado()) {
             if (util.isConected(this)) {
-                if ((validaAtualizacao_Wifi_DadosMoveis(configuracoes)) && resultPreferencias) {
-                    persisisteDadosFirebase_SQLite firebase_sqLite = new persisisteDadosFirebase_SQLite();
-                    firebase_sqLite.execute("Empresa e Itens", "Usuários");
+                if ((clRegrasPersistencia.validaAtualizacao_Wifi_DadosMoveis(configuracoes)) && resultPreferencias) {
+                    firebase_sqLite = new clPersistenciaDados_Firebase_SQLIte(AtualizaDadosActivity.this, txtAguarde);
+                    firebase_sqLite.execute("");
+                } else if (vlBDadosmoveis) {
+
+                    if (!PerguntaConexao.equals("")) {
+                        abrirDialogPersonalizado3Botoes(PerguntaConexao);
+                    }
+
                 } else if (!vlBDadosmoveis) {
-                    util.MensagemRapida(mensagemConexao);
+
+                    if (!mensagemConexao.equals("")) {
+                        util.MensagemRapida(mensagemConexao);
+                    }
                     //Criar um pergunta, se o usuário estiver conectado pelo Wifi, mas
                     //no cadastro estiver marcado para atualizar somente pelos dados móveis
                     //se ele deseja atualizar desse vez pelo Wifi.
@@ -98,172 +94,24 @@ public class AtualizaDadosActivity extends AppCompatActivity {
                 }
             } else {
                 util.MensagemRapida("Sem conexão com a internet");
-                mostrarLogin();
+                String res = funcoesPersistencia.mostrarLogin();
+                if (!res.equals("")) {
+                    abrirDialogPersonalizado1Botoes(res);
+                }
             }
         } else {
-            mostrarLogin();
+            String res = funcoesPersistencia.mostrarLogin();
+            if (!res.equals("")) {
+                abrirDialogPersonalizado1Botoes(res);
+            }
         }
     }
 
-    private void mostrarLogin() {
-
-        if (dadosFirebaseSQLite.existeDadosBancoSQLite()) {
-            /*Intent intent = new Intent(AtualizaDadosActivity.this, MainActivity.class);
-            startActivity(intent);*/
-            setResult(RESULT_OK);
-            finish();
-        } else {
-            if (util.isConected(this)) {
-                /*Intent intent = new Intent(AtualizaDadosActivity.this, MainActivity.class);
-                startActivity(intent);*/
-                setResult(RESULT_OK);
-                finish();
-            } else {
-                abrirDialogPersonalizado1Botoes("Não foi conectar para atualizar os dados, " +
-                        "tente novamente quando a internet for reestabelecida");
-            }
-        }
-
-    }
-
-    private boolean validaAtualizacao_Wifi_DadosMoveis(clConfiguracoes c) {
-        boolean resultado = true;
-        resultPreferencias = true;
-        mensagemConexao = "";
-
-        if (!c.dadosWifi() && !c.dadosMoveis()) {
-            resultado = false;
-            mensagemConexao = "Nenhuma opção para atualização está configurada, verifique nas opção" +
-                    "de configuração do App no menu configurações!";
-        }
-        if ((c.dadosWifi() && c.dadosMoveis()) && util.isConected(this)) {
-            resultado = true;
-            mensagemConexao = "";
-        } else if ((c.dadosWifi()) && (!util.conexaoWifi(this))) {
-            resultado = false;
-            mensagemConexao = "Atualização somente por Wifi. Conecte-se para poder atualizar";
-        } else if ((c.dadosMoveis()) && (!util.conexaoDadosMoveis(this))) {
-            resultado = false;
-            mensagemConexao = "Atualização somente por Dados Móveis. Conecte-se para poder atualizar";
-        } else if ((c.dadosMoveis()) && (util.conexaoDadosMoveis(this))) {
-            String pref = preferencias.getSecaoPreferencias("DadosMoveis");
-            if (!pref.equals("SIM")) {
-                vlBDadosmoveis = true;
-                resultado = false;
-                mensagemConexao = "Atualização por Dados Móveis poderá ser cobrado de sua franquia de internet," +
-                        "deseja continuar?";
-
-                abrirDialogPersonalizado3Botoes(mensagemConexao);
-            } else {
-                resultado = true;
-                mensagemConexao = "";
-            }
-        }
-
-        return resultado;
-    }
-
-    private class persisisteDadosFirebase_SQLite extends AsyncTask<String, String, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(String... strings) {
-
-            for (int i = 0; i <= strings.length - 1; i++) {
-                try {
-                    publishProgress(strings[i]);
-                    gravarDadosSQLite_Firebase();
-
-                    if (i == 0) {
-                        while ((!passouEmpresa) && (!passouItens)) {
-                            Thread.sleep(500);
-                        }
-                    } else if (i == 1) {
-                        while (!passouUsuario) {
-                            Thread.sleep(500);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-
-            if ((passouEmpresa) && (passouItens) && (passouUsuario)){
-                clInfoAtualizacao infoAtualizacao = new clInfoAtualizacao();
-                infoAtualizacao.setData_atualizacao(util.retornaDataAtual());
-                infoAtualizacao.setHora_atualizacao(util.retornaHoraAtual());
-                dadosFirebaseSQLite.gravaDadosInfoAtualizacao(infoAtualizacao);
-            }
-
-            mostrarLogin();
-        }
-
-        @Override
-        protected void onProgressUpdate(String... values) {
-            txtAguarde.setText("Atualizando tabelas ... " + values[0]);
-        }
-
-    }
-
-    private void gravarDadosSQLite_Firebase() {
-        reference = FirebaseDatabase.getInstance().getReference();
-        reference.child("empresa").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    todasEmpresas = postSnapShot.getValue(clEmpresa.class);
-                    dadosFirebaseSQLite.gravaDadosEmpresa(todasEmpresas);
-
-                    referenceItens = FirebaseDatabase.getInstance().getReference();
-                    referenceItens.child("cardapio_itens")
-                            .child(todasEmpresas.getKey_empresa())
-                            .addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot postSnapShotItens : dataSnapshot.getChildren()) {
-                                        todosItens = postSnapShotItens.getValue(clCardapio_Itens.class);
-                                        dadosFirebaseSQLite.gravaDadosCardapioItens(todosItens);
-                                        passouItens = true;
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-
-                    passouEmpresa = true;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        reference = FirebaseDatabase.getInstance().getReference();
-        reference.child("usuarios").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    todosUsuarios = postSnapShot.getValue(clUsuarios.class);
-                    dadosFirebaseSQLite.gravaDadosUsuarios(todosUsuarios);
-                    passouUsuario = true;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+    public void setDadosTela(boolean resultPreferencias, boolean vlBDadosmoveis, String mensagemConexao, String PerguntaConexao) {
+        this.resultPreferencias = resultPreferencias;
+        this.vlBDadosmoveis = vlBDadosmoveis;
+        this.mensagemConexao = mensagemConexao;
+        this.PerguntaConexao = PerguntaConexao;
     }
 
     public Boolean usuarioLogado() {
@@ -300,7 +148,7 @@ public class AtualizaDadosActivity extends AppCompatActivity {
                     resultPreferencias = true;
                     preferencias.salvarPreferencias("SIM", "DadosMoveis");
                     dialog.dismiss();
-                    persisisteDadosFirebase_SQLite firebase_sqLite = new persisisteDadosFirebase_SQLite();
+                    firebase_sqLite = new clPersistenciaDados_Firebase_SQLIte(AtualizaDadosActivity.this, txtAguarde);
                     firebase_sqLite.execute("Empresa e Itens", "Usuários");
                 }
             });
@@ -321,7 +169,7 @@ public class AtualizaDadosActivity extends AppCompatActivity {
                     resultPreferencias = true;
                     preferencias.salvarPreferencias("LEMBRAR", "DadosMoveis");
                     dialog.dismiss();
-                    persisisteDadosFirebase_SQLite firebase_sqLite = new persisisteDadosFirebase_SQLite();
+                    firebase_sqLite = new clPersistenciaDados_Firebase_SQLIte(AtualizaDadosActivity.this, txtAguarde);
                     firebase_sqLite.execute("Empresa e Itens", "Usuários");
                 }
             });

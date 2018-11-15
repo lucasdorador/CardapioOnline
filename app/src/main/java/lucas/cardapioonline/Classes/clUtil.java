@@ -8,8 +8,10 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,7 +46,7 @@ public class clUtil {
         return false;
     }
 
-    public SimpleDateFormat formataData(String formato){
+    public SimpleDateFormat formataData(String formato) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
         return dateFormat;
     }
@@ -60,7 +62,7 @@ public class clUtil {
         return result;
     }
 
-    public final Date retornaDataAtual(){
+    public final Date retornaDataAtual() {
         Date data = new Date();
 
         Calendar cal = Calendar.getInstance();
@@ -70,9 +72,9 @@ public class clUtil {
         return hoje;
     }
 
-    public final Date retornaHoraAtual(){
+    public final Date retornaHoraAtual() {
         Date data = new Date();
-        Calendar  cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
         cal.setTime(data);
         Date hora_atual = cal.getTime();
         return hora_atual;
@@ -159,7 +161,18 @@ public class clUtil {
 
     }
 
-    public Integer quantidade_dias_atualizacao(){
+    public Integer quantidade_dias_atualizacao() {
         return 2;
+    }
+
+    public String removeCaracteres(String texto, String[] caracteres) {
+        String resultado = "";
+        resultado = texto;
+
+        for (int i = 0; i < caracteres.length; i++) {
+            resultado = resultado.replace(caracteres[i], "");
+        }
+
+        return resultado;
     }
 }

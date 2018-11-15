@@ -1,11 +1,14 @@
 package lucas.cardapioonline.Fragments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,15 +19,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-
 import java.io.IOException;
 import java.util.List;
-
-import lucas.cardapioonline.Activity.AtualizaDadosActivity;
 import lucas.cardapioonline.Adapter.CardapioAdapter;
 import lucas.cardapioonline.Classes.clCardapio_Itens;
 import lucas.cardapioonline.Classes.clEmpresa;
+import lucas.cardapioonline.Classes.clFuncoesPersistencia;
+import lucas.cardapioonline.Classes.clPersistenciaDados_Firebase_SQLIte;
 import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.Controller.clCardapioItensController;
 import lucas.cardapioonline.R;
@@ -32,6 +33,7 @@ import lucas.cardapioonline.R;
 public class FragmentCardapio extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private clFuncoesPersistencia funcoesPersistencia;
     private LinearLayout linearLayout_RetornarMenuPrincipal;
     private RecyclerView recycleViewCardapio;
     private LinearLayoutManager mLayoutManagerTodosProdutos;
@@ -44,6 +46,7 @@ public class FragmentCardapio extends Fragment {
     private clCardapioItensController itensController;
     private clUtil util;
     private SwipeRefreshLayout swipeCardapio;
+    private clPersistenciaDados_Firebase_SQLIte firebase_sqLite;
 
     public FragmentCardapio() {
         // Required empty public constructor
@@ -66,6 +69,7 @@ public class FragmentCardapio extends Fragment {
         imgCardapioLogo = view.findViewById(R.id.imgCardapioLogo);
         swipeCardapio = view.findViewById(R.id.swipeCardapio);
         util = new clUtil(getActivity());
+        funcoesPersistencia = new clFuncoesPersistencia(getActivity());
 
         linearLayout_RetornarMenuPrincipal = view.findViewById(R.id.linearLayout_RetornarMenuPrincipal);
         recycleViewCardapio = view.findViewById(R.id.recycleViewCardapio);
@@ -84,22 +88,47 @@ public class FragmentCardapio extends Fragment {
         swipeCardapio.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                abreActivityAtualizacao();
+                atualizaTodosItens(EmpresaSelecionada.getKey_empresa());
             }
         });
 
-        swipeCardapio.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
+        txtCardapioEndereco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
 
+        txtCardapioTelefone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("tel:" + util.removeCaracteres(txtCardapioTelefone.getText().toString(),
+                        new String[]{"(", ")", "-", " "}));
+
+                Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) !=
+                        PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, 1);
+                    return;
+                }
+
+                startActivity(intent);
+            }
+        });
+
+        swipeCardapio.setColorSchemeResources(R.color.colorPrimary);
         return view;
     }
 
-    private void abreActivityAtualizacao() {
-        Intent intent = new Intent(getContext(), AtualizaDadosActivity.class);
-        startActivityForResult(intent, 123);
+    public void setAtualizaDadosTela(){
+        carregarTodosProdutos(EmpresaSelecionada.getKey_empresa());
+        util.MensagemRapida("Dados atualizados com sucesso!");
+    }
+
+    private void atualizaTodosItens(String key_Empresa) {
+        firebase_sqLite = new clPersistenciaDados_Firebase_SQLIte(getActivity(), key_Empresa, swipeCardapio, this);
+        firebase_sqLite.execute("Itens");
     }
 
     @Override

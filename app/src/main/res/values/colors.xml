@@ -5,4 +5,5 @@
     <color name="colorAccent">#e44836</color>
     <color name="Preto">#000</color>
     <color name="Branco">#fff</color>
+    <color name="Azul_Link">#0000ff</color>
 </resources>
