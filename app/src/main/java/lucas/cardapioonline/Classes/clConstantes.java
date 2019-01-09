@@ -7,4 +7,6 @@ public class clConstantes {
     public static boolean passouEmpresa = false;
     public static boolean passouUsuario = false;
     public static boolean passouItens = false;
+    public static boolean passouGrupos = false;
+
 }

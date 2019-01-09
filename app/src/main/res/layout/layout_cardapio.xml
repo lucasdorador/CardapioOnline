@@ -88,65 +88,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/cardapio_GrupoProdutos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Porções Chapeadas"
-            android:textColor="@color/Preto"
-            android:textSize="25dp"
-            android:textStyle="bold" />
-
-        <View
-            android:id="@+id/view_Cardapio"
-            style="@style/ConfiguracaoViewMenus" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/txtFixo_Descricao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Descrição"
-                android:textColor="@color/bootstrap_gray"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txtFixo_ValorMeia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Meia"
-                android:textColor="@color/bootstrap_gray"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txtFixo_ValorInteira"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Inteira"
-                android:textColor="@color/bootstrap_gray"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-    </LinearLayout>
-
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipeCardapio"
         android:layout_width="match_parent"

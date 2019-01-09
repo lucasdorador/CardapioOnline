@@ -15,6 +15,7 @@ public class clFuncoesPersistencia {
     private clEmpresa todasEmpresas;
     private clUsuarios todosUsuarios;
     private clCardapio_Itens todosItens;
+    private clGrupos todosGrupos;
     private clGravaDadosFirebaseSQLite dadosFirebaseSQLite;
     private Activity activity;
     private clUtil util;
@@ -135,6 +136,23 @@ public class clFuncoesPersistencia {
                     todosUsuarios = postSnapShot.getValue(clUsuarios.class);
                     dadosFirebaseSQLite.gravaDadosUsuarios(todosUsuarios);
                     clConstantes.passouUsuario = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        reference = FirebaseDatabase.getInstance().getReference();
+        reference.child("grupos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+                    todosGrupos = postSnapShot.getValue(clGrupos.class);
+                    dadosFirebaseSQLite.gravaDadosGrupos(todosGrupos);
+                    clConstantes.passouGrupos = true;
                 }
             }
 

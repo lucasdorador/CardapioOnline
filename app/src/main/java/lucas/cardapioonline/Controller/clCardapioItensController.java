@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lucas.cardapioonline.Classes.clCardapio_Itens;
+import lucas.cardapioonline.Classes.clProdutosItens;
 import lucas.cardapioonline.SQLite.clCardapioOnline;
 
 public class clCardapioItensController {
@@ -21,7 +22,7 @@ public class clCardapioItensController {
         banco = new clCardapioOnline(context);
     }
 
-    public boolean insereDadosCardapioItens(clCardapio_Itens itens){
+    public boolean insereDadosCardapioItens(clCardapio_Itens itens) {
         ContentValues valores;
         boolean resultado = true;
 
@@ -29,19 +30,19 @@ public class clCardapioItensController {
         valores = new ContentValues();
         valores.put("descricao", itens.getDescricao());
         valores.put("complemento", itens.getComplemento());
-        valores.put("grupo", itens.getGrupo());
+        valores.put("key_grupo", itens.getkey_Grupo());
         valores.put("key_produto", itens.getKey_produto());
         valores.put("key_empresa", itens.getKey_empresa());
         valores.put("valor_inteira", itens.getValor_inteira());
         valores.put("valor_meia", itens.getValor_meia());
-        
+
         resultado = !(db.insert("cardapio_itens", null, valores) == -1);
         db.close();
 
         return resultado;
     }
 
-    public boolean alteraDadosCardapioItens(clCardapio_Itens itens){
+    public boolean alteraDadosCardapioItens(clCardapio_Itens itens) {
         ContentValues valores;
         boolean resultado = true;
 
@@ -53,7 +54,7 @@ public class clCardapioItensController {
         valores = new ContentValues();
         valores.put("descricao", itens.getDescricao());
         valores.put("complemento", itens.getComplemento());
-        valores.put("grupo", itens.getGrupo());
+        valores.put("key_grupo", itens.getkey_Grupo());
         valores.put("key_produto", itens.getKey_produto());
         valores.put("key_empresa", itens.getKey_empresa());
         valores.put("valor_inteira", itens.getValor_inteira());
@@ -65,7 +66,7 @@ public class clCardapioItensController {
         return resultado;
     }
 
-    public boolean deletaDadosCardapioItens(String key_produto, String key_empresa){
+    public boolean deletaDadosCardapioItens(String key_produto, String key_empresa) {
         boolean resultado = true;
 
         String where = "key_produto = '" + key_produto +
@@ -107,7 +108,7 @@ public class clCardapioItensController {
 
                 cardapioItens.setComplemento(cursor.getString(cursor.getColumnIndex("complemento")));
                 cardapioItens.setDescricao(cursor.getString(cursor.getColumnIndex("descricao")));
-                cardapioItens.setGrupo(cursor.getString(cursor.getColumnIndex("grupo")));
+                cardapioItens.setkey_Grupo(cursor.getString(cursor.getColumnIndex("key_grupo")));
                 cardapioItens.setKey_empresa(cursor.getString(cursor.getColumnIndex("key_empresa")));
                 cardapioItens.setKey_produto(cursor.getString(cursor.getColumnIndex("key_produto")));
                 cardapioItens.setValor_inteira(cursor.getString(cursor.getColumnIndex("valor_inteira")));
@@ -121,5 +122,25 @@ public class clCardapioItensController {
 
         return cardapioItensList;
 
+    }
+
+    public List<clProdutosItens> retornaProdutosItens_Grupos(String key_empresa, String key_grupo) {
+        List<clProdutosItens> clProdutosItens = new ArrayList<>();
+        SQLiteDatabase db = banco.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT descricao, valor_meia, valor_inteira, complemento FROM cardapio_itens WHERE key_empresa = ? and key_grupo = ?",
+                new String[]{key_empresa, key_grupo});
+
+        if (cursor.moveToFirst()) {
+            do {
+                clProdutosItens.add(new clProdutosItens(cursor.getString(cursor.getColumnIndex("descricao")),
+                        cursor.getString(cursor.getColumnIndex("valor_meia")),
+                        cursor.getString(cursor.getColumnIndex("valor_inteira")),
+                        cursor.getString(cursor.getColumnIndex("complemento")),
+                        false));
+            }
+            while (cursor.moveToNext());
+        }
+
+        return clProdutosItens;
     }
 }

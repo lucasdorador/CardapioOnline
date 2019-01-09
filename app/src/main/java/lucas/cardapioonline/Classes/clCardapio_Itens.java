@@ -5,7 +5,7 @@ public class clCardapio_Itens {
     //Dados do Cardápio
     private String complemento;
     private String descricao;
-    private String grupo;
+    private String key_grupo;
     private String key_produto;
     private String key_empresa;
     private String valor_inteira;
@@ -16,7 +16,7 @@ public class clCardapio_Itens {
     }
 
     private void inicializaVariaveis(){
-        grupo = "";
+        key_grupo = "";
         key_produto = "";
         descricao = "";
         complemento = "";
@@ -41,12 +41,12 @@ public class clCardapio_Itens {
         this.key_empresa = key_empresa;
     }
 
-    public String getGrupo() {
-        return grupo;
+    public String getkey_Grupo() {
+        return key_grupo;
     }
 
-    public void setGrupo(String grupo) {
-        this.grupo = grupo;
+    public void setkey_Grupo(String grupo) {
+        this.key_grupo = grupo;
     }
 
     public String getDescricao() {

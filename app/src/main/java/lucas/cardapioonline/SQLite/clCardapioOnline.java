@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class clCardapioOnline extends SQLiteOpenHelper {
 
     private static final String NOME_BANCO = "cardapioonline.db";
-    private static final int VERSAO = 2;
+    private static final int VERSAO = 3;
 
 
     public clCardapioOnline(Context context) {
@@ -21,6 +21,7 @@ public class clCardapioOnline extends SQLiteOpenHelper {
         criaTabelaCardapio_Itens(sqLiteDatabase);
         criaTabelaConfiguracoes(sqLiteDatabase);
         criaTabelaInfoAtualizacao(sqLiteDatabase);
+        criaTabelaGrupos(sqLiteDatabase);
     }
 
     @Override
@@ -73,7 +74,7 @@ public class clCardapioOnline extends SQLiteOpenHelper {
         String sql = "create table cardapio_itens ( _id INTEGER not null primary key autoincrement, " +
                 "descricao text not null, " +
                 "complemento text, " +
-                "grupo text, " +
+                "key_grupo text, " +
                 "key_produto text, " +
                 "key_empresa text, " +
                 "valor_inteira real, " +
@@ -104,11 +105,22 @@ public class clCardapioOnline extends SQLiteOpenHelper {
         db.execSQL("create index configuracoesC on configuracoes ( configapp_armaz_externo asc )");
     }
 
+    private void criaTabelaGrupos(SQLiteDatabase db) {
+        String sql = "create table grupos (_id integer not null primary key autoincrement," +
+                "key_grupo text," +
+                "descricao text);";
+
+        db.execSQL(sql);
+        db.execSQL("create index gruposA on grupos ( key_grupo asc )");
+        db.execSQL("create index gruposB on grupos ( descricao asc )");
+    }
+
     private void dropaTabelas(SQLiteDatabase db) {
         db.execSQL("drop table if exists usuarios");
         db.execSQL("drop table if exists empresa");
         db.execSQL("drop table if exists cardapio_itens");
         db.execSQL("drop table if exists configuracoes");
-        db.execSQL("drop table if exists infoatualizacao");
+        db.execSQL("drop table if exists ultimaatualizacao");
+        db.execSQL("drop table if exists grupos");
     }
 }

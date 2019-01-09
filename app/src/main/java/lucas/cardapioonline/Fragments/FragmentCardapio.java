@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,9 +23,11 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.List;
 import lucas.cardapioonline.Adapter.CardapioAdapter;
+import lucas.cardapioonline.Adapter.GruposAdapter;
 import lucas.cardapioonline.Classes.clCardapio_Itens;
 import lucas.cardapioonline.Classes.clEmpresa;
 import lucas.cardapioonline.Classes.clFuncoesPersistencia;
+import lucas.cardapioonline.Classes.clGruposData_SQLite;
 import lucas.cardapioonline.Classes.clPersistenciaDados_Firebase_SQLIte;
 import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.Controller.clCardapioItensController;
@@ -37,7 +40,7 @@ public class FragmentCardapio extends Fragment {
     private LinearLayout linearLayout_RetornarMenuPrincipal;
     private RecyclerView recycleViewCardapio;
     private LinearLayoutManager mLayoutManagerTodosProdutos;
-    private CardapioAdapter adapter_SQLite;
+    private GruposAdapter adapter_SQLite;
     private List<clCardapio_Itens> cardapios;
     private clEmpresa EmpresaSelecionada;
     protected TextView txtCardapioNome, txtCardapioEndereco, txtCardapioTelefone,
@@ -73,10 +76,18 @@ public class FragmentCardapio extends Fragment {
 
         linearLayout_RetornarMenuPrincipal = view.findViewById(R.id.linearLayout_RetornarMenuPrincipal);
         recycleViewCardapio = view.findViewById(R.id.recycleViewCardapio);
+
+        RecyclerView.ItemAnimator animator = recycleViewCardapio.getItemAnimator();
+        if (animator instanceof DefaultItemAnimator) {
+            ((DefaultItemAnimator) animator).setSupportsChangeAnimations(false);
+        }
+
         itensController = new clCardapioItensController(getActivity());
 
         carregaDadosEmpresa(EmpresaSelecionada);
-        carregarTodosProdutos(EmpresaSelecionada.getKey_empresa());
+        carregaListaProdutos_Grupos(EmpresaSelecionada.getKey_empresa());
+
+        //carregarTodosProdutos(EmpresaSelecionada.getKey_empresa());
 
         linearLayout_RetornarMenuPrincipal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,8 +133,17 @@ public class FragmentCardapio extends Fragment {
     }
 
     public void setAtualizaDadosTela(){
-        carregarTodosProdutos(EmpresaSelecionada.getKey_empresa());
+        //carregarTodosProdutos(EmpresaSelecionada.getKey_empresa());
+        carregaListaProdutos_Grupos(EmpresaSelecionada.getKey_empresa());
         util.MensagemRapida("Dados atualizados com sucesso!");
+    }
+
+    private void carregaListaProdutos_Grupos(String key_Empresa){
+        clGruposData_SQLite clGruposData_sqLite = new clGruposData_SQLite(getContext(), key_Empresa);
+        adapter_SQLite = new GruposAdapter(clGruposData_sqLite.carregaGrupos());
+        mLayoutManagerTodosProdutos = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recycleViewCardapio.setLayoutManager(mLayoutManagerTodosProdutos);
+        recycleViewCardapio.setAdapter(adapter_SQLite);
     }
 
     private void atualizaTodosItens(String key_Empresa) {
@@ -163,7 +183,7 @@ public class FragmentCardapio extends Fragment {
         mLayoutManagerTodosProdutos = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recycleViewCardapio.setLayoutManager(mLayoutManagerTodosProdutos);
         retornaCardapioCompleto(Key_Empresa);
-        adapter_SQLite = new CardapioAdapter(cardapios, getActivity(), Key_Empresa);
+        //adapter_SQLite = new CardapioAdapter(cardapios, getActivity(), Key_Empresa);
         recycleViewCardapio.setAdapter(adapter_SQLite);
         adapter_SQLite.notifyDataSetChanged();
     }
