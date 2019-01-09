@@ -9,6 +9,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import lucas.cardapioonline.Controller.clCardapioItensController;
+import lucas.cardapioonline.Controller.clGrupoController;
+
 public class clFuncoesPersistencia {
 
     private DatabaseReference reference, referenceItens;
@@ -17,6 +20,8 @@ public class clFuncoesPersistencia {
     private clCardapio_Itens todosItens;
     private clGrupos todosGrupos;
     private clGravaDadosFirebaseSQLite dadosFirebaseSQLite;
+    private clCardapioItensController itensController;
+    private clGrupoController grupoController;
     private Activity activity;
     private clUtil util;
 
@@ -26,6 +31,8 @@ public class clFuncoesPersistencia {
         activity = a;
         util = new clUtil(activity);
         dadosFirebaseSQLite = new clGravaDadosFirebaseSQLite(activity);
+        itensController = new clCardapioItensController(activity);
+        grupoController = new clGrupoController(activity);
     }
 
     public void gravarDadosSQLite_Empresa_Itens() {
@@ -67,7 +74,7 @@ public class clFuncoesPersistencia {
         });
     }
 
-    public void gravarDadosSQLite_Itens(String key_Empresa) {
+    public void gravarDadosSQLite_Itens_Grupos(final String key_Empresa) {
         if (!key_Empresa.equals("")) {
             referenceItens = FirebaseDatabase.getInstance().getReference();
             referenceItens.child("cardapio_itens")
@@ -75,6 +82,9 @@ public class clFuncoesPersistencia {
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            itensController.deletaTODOSItens(key_Empresa);
+
                             for (DataSnapshot postSnapShotItens : dataSnapshot.getChildren()) {
                                 todosItens = postSnapShotItens.getValue(clCardapio_Itens.class);
                                 dadosFirebaseSQLite.gravaDadosCardapioItens(todosItens);
@@ -87,7 +97,49 @@ public class clFuncoesPersistencia {
 
                         }
                     });
+
+            reference = FirebaseDatabase.getInstance().getReference();
+            reference.child("grupos").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    grupoController.deletaTODOSGrupos();
+
+                    for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+                        todosGrupos = postSnapShot.getValue(clGrupos.class);
+                        dadosFirebaseSQLite.gravaDadosGrupos(todosGrupos);
+                        clConstantes.passouGrupos = true;
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
+    }
+
+    public void gravarDadosSQLite_Grupos() {
+        reference = FirebaseDatabase.getInstance().getReference();
+        reference.child("grupos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                grupoController.deletaTODOSGrupos();
+
+                for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+                    todosGrupos = postSnapShot.getValue(clGrupos.class);
+                    dadosFirebaseSQLite.gravaDadosGrupos(todosGrupos);
+                    clConstantes.passouGrupos = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void gravarDadosSQLite_Firebase() {

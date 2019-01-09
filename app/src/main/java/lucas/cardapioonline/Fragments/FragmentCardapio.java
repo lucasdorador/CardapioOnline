@@ -148,7 +148,7 @@ public class FragmentCardapio extends Fragment {
 
     private void atualizaTodosItens(String key_Empresa) {
         firebase_sqLite = new clPersistenciaDados_Firebase_SQLIte(getActivity(), key_Empresa, swipeCardapio, this);
-        firebase_sqLite.execute("Itens");
+        firebase_sqLite.execute("Itens e Grupos");
     }
 
     @Override

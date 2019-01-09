@@ -79,6 +79,19 @@ public class clCardapioItensController {
         return resultado;
     }
 
+    public boolean deletaTODOSItens(String key_empresa) {
+        boolean resultado = true;
+
+        String where = "key_empresa = '" + key_empresa + "'";
+
+        db = banco.getReadableDatabase();
+        resultado = !(db.delete("cardapio_itens", where, null) == -1);
+        db.close();
+
+        return resultado;
+    }
+
+
 
     public boolean existeDadosCadastrados(String key_produto, String key_empresa) {
         boolean resultado = true;

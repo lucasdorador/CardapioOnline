@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.TextView;
+
 import lucas.cardapioonline.Activity.AtualizaDadosActivity;
 import lucas.cardapioonline.Activity.PrincipalActivity;
 import lucas.cardapioonline.Fragments.FragmentCardapio;
@@ -23,7 +24,7 @@ public class clPersistenciaDados_Firebase_SQLIte extends AsyncTask<String, Strin
 
     public clPersistenciaDados_Firebase_SQLIte(Activity a, String key_empresa,
                                                SwipeRefreshLayout swipe,
-                                               FragmentCardapio fragmentCardapio){
+                                               FragmentCardapio fragmentCardapio) {
         activity = a;
         this.key_Empresa = key_empresa;
         this.swipe = swipe;
@@ -43,7 +44,7 @@ public class clPersistenciaDados_Firebase_SQLIte extends AsyncTask<String, Strin
         funcoesPersistencia = new clFuncoesPersistencia(activity);
     }
 
-    public clPersistenciaDados_Firebase_SQLIte(PrincipalActivity p, SwipeRefreshLayout swipe){
+    public clPersistenciaDados_Firebase_SQLIte(PrincipalActivity p, SwipeRefreshLayout swipe) {
         activity = p;
         principalActivity = p;
         this.swipe = swipe;
@@ -62,8 +63,10 @@ public class clPersistenciaDados_Firebase_SQLIte extends AsyncTask<String, Strin
 
                 if (strings[i].equals("Empresa e Itens")) {
                     funcoesPersistencia.gravarDadosSQLite_Empresa_Itens();
-                } else if (strings[i].equals("Itens")) {
-                    funcoesPersistencia.gravarDadosSQLite_Itens(key_Empresa);
+                } else if (strings[i].equals("Itens e Grupos")) {
+                    funcoesPersistencia.gravarDadosSQLite_Itens_Grupos(key_Empresa);
+                } else if (strings[i].equals("Grupos")) {
+                    funcoesPersistencia.gravarDadosSQLite_Grupos();
                 } else {
                     funcoesPersistencia.gravarDadosSQLite_Firebase();
                 }
@@ -100,7 +103,7 @@ public class clPersistenciaDados_Firebase_SQLIte extends AsyncTask<String, Strin
         } else if (fragmentCardapio != null) {
             swipe.setRefreshing(false);
             fragmentCardapio.setAtualizaDadosTela();
-        } else if (principalActivity != null){
+        } else if (principalActivity != null) {
             swipe.setRefreshing(false);
             principalActivity.setAtualizaDadosTela();
         }

@@ -69,6 +69,16 @@ public class clGrupoController {
         return resultado;
     }
 
+    public boolean deletaTODOSGrupos() {
+        boolean resultado = true;
+
+        db = banco.getReadableDatabase();
+        resultado = !(db.delete("grupos", null, null) == -1);
+        db.close();
+
+        return resultado;
+    }
+
     public boolean existeDadosCadastrados(String keyGrupo) {
         boolean resultado = true;
         long numOfEntries;
