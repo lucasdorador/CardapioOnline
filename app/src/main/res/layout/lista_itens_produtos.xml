@@ -7,8 +7,8 @@
     <LinearLayout
         android:id="@+id/linearLayout_Produtos"
         android:layout_width="match_parent"
-        android:layout_margin="5dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -27,7 +27,7 @@
             <TextView
                 android:id="@+id/lista_itens_produtos_complemento"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="(Acompanha pão)"
                 android:textColor="@color/bootstrap_gray"
                 android:textSize="10dp"
@@ -52,11 +52,14 @@
             android:gravity="center"
             android:text="30,00"
             android:textColor="@color/bootstrap_gray" />
+
     </LinearLayout>
+
 
     <View
         style="@style/ConfiguracaoViewMenus"
         android:layout_marginTop="5dp"
         android:focusable="false" />
+
 
 </FrameLayout>

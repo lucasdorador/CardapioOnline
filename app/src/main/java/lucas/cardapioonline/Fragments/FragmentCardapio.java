@@ -140,7 +140,7 @@ public class FragmentCardapio extends Fragment {
 
     private void carregaListaProdutos_Grupos(String key_Empresa){
         clGruposData_SQLite clGruposData_sqLite = new clGruposData_SQLite(getContext(), key_Empresa);
-        adapter_SQLite = new GruposAdapter(clGruposData_sqLite.carregaGrupos());
+        adapter_SQLite = new GruposAdapter(clGruposData_sqLite.carregaGrupos(), getActivity());
         mLayoutManagerTodosProdutos = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recycleViewCardapio.setLayoutManager(mLayoutManagerTodosProdutos);
         recycleViewCardapio.setAdapter(adapter_SQLite);

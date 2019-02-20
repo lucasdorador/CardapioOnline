@@ -1,14 +1,19 @@
 package lucas.cardapioonline.Classes;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -21,6 +26,8 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import lucas.cardapioonline.R;
 
 public class clUtil {
 
@@ -174,5 +181,32 @@ public class clUtil {
         }
 
         return resultado;
+    }
+
+    public void abrirDialogMensagens(String mensagem) {
+        if (!mensagem.equals("")) {
+            final Dialog dialog = new Dialog(activity);
+            dialog.setContentView(R.layout.alert_mensagem);
+            dialog.setCancelable(false);
+
+            final TextView txtMensagem;
+            final BootstrapButton btnOk;
+
+            txtMensagem = dialog.findViewById(R.id.txtTexto);
+            txtMensagem.setText(mensagem);
+
+            btnOk = dialog.findViewById(R.id.btnOk);
+            btnOk.setText("Ok");
+            btnOk.setBootstrapBrand(DefaultBootstrapBrand.INFO);
+
+            btnOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+        }
     }
 }

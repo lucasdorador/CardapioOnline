@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 
+import lucas.cardapioonline.Classes.clGravaDadosFirebaseSQLite;
 import lucas.cardapioonline.Classes.clUsuarios;
 import lucas.cardapioonline.Classes.clUtil;
 import lucas.cardapioonline.DAO.ConfiguracaoFirebase;
@@ -38,6 +39,7 @@ public class FragmentCadastro extends Fragment {
     private FirebaseAuth autenticacao;
     private DatabaseReference reference;
     private clUtil util;
+    private clGravaDadosFirebaseSQLite gravaDadosFirebaseSQLite;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class FragmentCadastro extends Fragment {
         edtCadastrarIdade = view.findViewById(R.id.edtCadastrarIdade);
         SpinnerGenero = view.findViewById(R.id.SpinnerGenero);
         util = new clUtil(getActivity());
+        gravaDadosFirebaseSQLite = new clGravaDadosFirebaseSQLite(getActivity());
 
         btnCadastrarFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +174,7 @@ public class FragmentCadastro extends Fragment {
             String key = reference.push().getKey();
             usuarios.setKeyUsuario(key);
             reference.child(key).setValue(usuarios);
+            gravaDadosFirebaseSQLite.gravaDadosUsuarios(usuarios);
             util.MensagemRapida("Usuário cadastrado com sucesso!");
             abreTelaConectar();
             return true;

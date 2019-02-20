@@ -1,5 +1,6 @@
 package lucas.cardapioonline.Adapter;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,12 @@ import lucas.cardapioonline.R;
 
 public class GruposAdapter extends ExpandableRecyclerViewAdapter<GrupoViewHolder, ProdutosViewHolder> {
 
-    public GruposAdapter(List<? extends ExpandableGroup> groups) {
+    Activity activity;
+
+    public GruposAdapter(List<? extends ExpandableGroup> groups, Activity a) {
         super(groups);
+
+        activity = a;
     }
 
     @Override
@@ -32,7 +37,7 @@ public class GruposAdapter extends ExpandableRecyclerViewAdapter<GrupoViewHolder
     public ProdutosViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.lista_itens_produtos, parent, false);
-        return new ProdutosViewHolder(view);
+        return new ProdutosViewHolder(view, activity);
     }
 
     @Override
@@ -42,6 +47,8 @@ public class GruposAdapter extends ExpandableRecyclerViewAdapter<GrupoViewHolder
         holder.setProdutoValorMeia(produtosItens.getValorMeia());
         holder.setProdutoValorInteira(produtosItens.getValorInteira());
         holder.setProdutoComplemento(produtosItens.getComplemento());
+
+
     }
 
     @Override
